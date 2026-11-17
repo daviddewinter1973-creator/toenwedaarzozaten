@@ -10,8 +10,10 @@
   let filter = 'alle';
 
   /* ---------- voorraad ---------- */
-  const left = (slug, variant) => STOCK[slug]?.[variant] ?? 0;
-  const leftTotal = p => p.variants.reduce((a, v) => a + left(p.slug, v.id), 0);
+  // Eén voorraad per print, voor passe-partout én ingelijst.
+  const left = slug => { const v = STOCK[slug]; return typeof v === 'number' ? v : Object.values(v || {}).reduce((a, n) => a + (n || 0), 0); };
+  const leftTotal = p => left(p.slug);
+  const inCart = slug => cart.filter(l => l.slug === slug).reduce((a, l) => a + l.qty, 0);
   const scarcity = p => { const n = leftTotal(p); return n === 0 ? 'out' : n <= FEW ? 'few' : 'ok'; };
 
   /* ---------- winkelwagen ---------- */
@@ -24,16 +26,15 @@
     const el = $('.cart-count'); el.textContent = n; el.hidden = n === 0;
   };
   const findItem = l => {
-    if (l.slug === 'boek') return { title: 'Toen we daar zo zaten', sub: 'Het boek', img: 'img/boek.webp', price: DATA.boek.price, max: left('boek', 'boek') };
+    if (l.slug === 'boek') return { title: 'Toen we daar zo zaten', sub: 'Het boek', img: 'img/boek.webp', price: DATA.boek.price, max: left('boek') };
     const p = DATA.prints.find(x => x.slug === l.slug); if (!p) return null;
     const v = p.variants.find(x => x.id === l.variant); if (!v) return null;
-    return { title: p.title, sub: `${v.id === "lijst" ? "Ingelijst" : "Met passe-partout"}, ${p.size.replace(" x ", " × ")}`, img: `img/thumb/${p.slug}-420.webp`, price: v.price, max: left(p.slug, v.id) };
+    return { title: p.title, sub: `${v.id === "lijst" ? "Ingelijst" : "Met passe-partout"}, ${p.size.replace(" x ", " × ")}`, img: `img/thumb/${p.slug}-420.webp`, price: v.price, max: left(p.slug) };
   };
   const addToCart = (slug, variant) => {
     const item = findItem({ slug, variant });
     const ex = cart.find(l => l.slug === slug && l.variant === variant);
-    const inCart = ex ? ex.qty : 0;
-    if (inCart >= item.max) return toast(item.max === 0 ? 'Deze is helaas uitverkocht.' : 'Meer exemplaren zijn er niet.');
+    if (inCart(slug) >= item.max) return toast(item.max === 0 ? 'Deze is helaas uitverkocht.' : 'Meer exemplaren zijn er niet.');
     if (ex) ex.qty++; else cart.push({ slug, variant, qty: 1 });
     saveCart();
     toast(`${esc(item.title)} ligt in je winkelwagen <a href="#winkelwagen">Bekijken</a>`);
@@ -105,7 +106,7 @@
       if (!p) return views.notfound();
       const k = p.krant && DATA.krant.find(x => x.slug === p.krant);
       const s = scarcity(p);
-      const firstAvail = p.variants.find(v => left(p.slug, v.id) > 0) || p.variants[0];
+      const firstAvail = p.variants[0];
       const others = DATA.prints.filter(x => x.slug !== slug && sizeClass(x) === sizeClass(p) && scarcity(x) !== 'out').slice(0, 4);
       return `
         <a class="crumb" href="#shop">← Alle prints</a>
@@ -129,7 +130,7 @@
             </dl>
             ${s === 'few' ? `<p class="scarcity">Nog ${leftTotal(p)} van de ${p.edition}</p>` : ''}
             <fieldset class="variants"><legend class="label">Uitvoering</legend>
-              ${p.variants.map(v => { const out = left(p.slug, v.id) === 0; return `
+              ${p.variants.map(v => { const out = s === 'out'; return `
                 <label class="variant ${out ? 'out' : ''}">
                   <input type="radio" name="variant" value="${v.id}" ${v.id === firstAvail.id ? 'checked' : ''} ${out ? 'disabled' : ''}>
                   <span class="v-name">${v.id === 'lijst' ? 'Ingelijst' : 'Met passe-partout'}<span class="v-note">${out ? 'Uitverkocht' : v.id === 'lijst' ? 'Zwarte houten lijst, museumglas' : 'Klaar om in te lijsten'}</span></span>
@@ -160,7 +161,7 @@
     },
 
     boek() {
-      const out = left('boek', 'boek') === 0;
+      const out = left('boek') === 0;
       return `
         <div class="split">
           <div class="boek-cover"><button class="inkijk-open" data-inkijk aria-label="Blader door het boek"><img src="img/boek.webp" alt="Omslag van het boek Toen we daar zo zaten" width="1181" height="1181"><span class="inkijk-badge">Inkijkexemplaar</span></button></div>
@@ -171,7 +172,7 @@
               <p>Kunstenaar David (Staaf) de Winter en schrijver Rogier Cornelisse maakten een serie liefdevolle portretten, in woord en beeld, vanaf de mooiste terrassen van Amsterdam. Van Abina tot Zouk, van de Oudezijds tot de Nieuwendammerdijk en van P.King tot De Hoek.</p>
               <p>De tekeningen en de teksten stonden een jaar lang iedere week in bijlage PS van Het Parool en zijn nu gebundeld in één boek.</p>
             </div>
-            ${DATA.boek.note && !out ? `<p class="scarcity">${esc(DATA.boek.note)}</p>` : ''}
+            ${!out && (DATA.boek.note || left('boek') <= FEW) ? `<p class="scarcity">${[DATA.boek.note, left('boek') <= FEW ? `nog ${left('boek')}` : ''].filter(Boolean).join(' · ')}</p>` : ''}
             <p class="price">${euro(DATA.boek.price)}</p>
             <div class="links" style="gap:18px 22px"><button class="btn" data-add="boek" ${out ? 'disabled' : ''}>${out ? 'Uitverkocht' : 'In winkelwagen'}</button><button class="btn outline" data-inkijk>Blader door het boek</button></div>
             <p class="note">116 pagina's, 25 × 25 cm, gebonden.</p>
@@ -431,7 +432,8 @@
     if (q) {
       const l = cart[+q.dataset.q]; const it = findItem(l);
       l.qty += +q.dataset.d;
-      if (l.qty > it.max) { l.qty = it.max; toast('Meer exemplaren zijn er niet.'); }
+      const over = inCart(l.slug) - it.max;
+      if (over > 0) { l.qty -= over; toast('Meer exemplaren zijn er niet.'); }
       if (l.qty < 1) cart.splice(+q.dataset.q, 1);
       saveCart(); rerender(); return;
     }
@@ -443,8 +445,8 @@
 
   /* ---------- start ---------- */
   const seedStock = d => {
-    const s = {}; d.prints.forEach(p => { s[p.slug] = {}; p.variants.forEach(v => s[p.slug][v.id] = v.stock ?? 0); });
-    s.boek = { boek: d.boek.stock ?? 999 }; return s;
+    const s = {}; d.prints.forEach(p => { s[p.slug] = p.variants.reduce((a, v) => a + (v.stock ?? 0), 0); });
+    s.boek = d.boek.stock ?? 999; return s;
   };
   const loadStock = () => fetch('/.netlify/functions/stock', { cache: 'no-store' })
     .then(r => r.ok ? r.json() : Promise.reject()).then(s => { STOCK = s; })

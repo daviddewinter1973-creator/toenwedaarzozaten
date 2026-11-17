@@ -23,16 +23,10 @@ export default async (req) => {
   const data = await loadData(origin);
 
   if (body.action === 'save') {
+    const clamp = v => { const n = parseInt(v, 10); return Number.isFinite(n) ? Math.max(0, Math.min(9999, n)) : 0; };
     const valid = {};
-    for (const p of data.prints) {
-      valid[p.slug] = {};
-      for (const v of p.variants) {
-        const n = parseInt(body.stock?.[p.slug]?.[v.id], 10);
-        valid[p.slug][v.id] = Number.isFinite(n) ? Math.max(0, Math.min(9999, n)) : 0;
-      }
-    }
-    const nb = parseInt(body.stock?.boek?.boek, 10);
-    valid.boek = { boek: Number.isFinite(nb) ? Math.max(0, Math.min(9999, nb)) : 0 };
+    for (const p of data.prints) valid[p.slug] = clamp(body.stock?.[p.slug]);
+    valid.boek = clamp(body.stock?.boek);
     await saveBasis(valid, body.asOf);
     const cur = await currentStock(origin, data);
     return json(200, { ok: true, stock: cur.stock, updatedAt: new Date().toISOString(), asOf: new Date().toISOString() });

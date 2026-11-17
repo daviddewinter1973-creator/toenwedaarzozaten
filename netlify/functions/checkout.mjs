@@ -24,6 +24,7 @@ export default async (req) => {
 
   const lines = [];
   const meta = [];
+  const wanted = {}; // per print opgeteld, ongeacht de uitvoering
   let total = 0;
   for (const l of items) {
     const qty = Math.max(1, Math.min(10, parseInt(l.qty, 10) || 1));
@@ -37,9 +38,11 @@ export default async (req) => {
       slug = p.slug; variant = v.id; price = v.price;
       name = `${p.title}, ${v.id === 'lijst' ? 'ingelijst' : 'passe-partout'}`;
     }
-    const left = stock[slug]?.[variant] ?? 0;
-    if (left < qty) {
-      return json(409, { error: left === 0 ? `${name} is helaas uitverkocht.` : `Van ${name} zijn er nog maar ${left}.` });
+    wanted[slug] = (wanted[slug] || 0) + qty;
+    const left = stock[slug] ?? 0;
+    const title = slug === 'boek' ? 'het boek' : data.prints.find(x => x.slug === slug).title;
+    if (left < wanted[slug]) {
+      return json(409, { error: left === 0 ? `${title} is helaas uitverkocht.` : `Van ${title} zijn er nog maar ${left}.` });
     }
     lines.push({ name, qty, price, slug, variant, xl: !!data.prints.find(x => x.slug === slug)?.xl });
     meta.push([slug, variant, qty]);

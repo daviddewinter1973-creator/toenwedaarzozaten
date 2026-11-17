@@ -45,9 +45,9 @@
 
   <div id="app" hidden>
     <div class="section-head"><h1 class="h2">Voorraad</h1><a class="textlink" href="./">Naar de site</a></div>
-    <p class="hint">Vul per uitvoering in hoeveel exemplaren je nog hebt. Op de site is het aantal pas zichtbaar als er 10 of minder over zijn; bij 0 staat de print op uitverkocht. Betaalde bestellingen worden automatisch afgeboekt.</p>
+    <p class="hint">Vul per print in hoeveel exemplaren je nog hebt; met en zonder lijst samen. Op de site is het aantal pas zichtbaar als er 10 of minder over zijn; bij 0 staat de print op uitverkocht. Betaalde bestellingen worden automatisch afgeboekt.</p>
     <table>
-      <thead><tr><th></th><th>Print</th><th>Passe-partout</th><th>Ingelijst</th><th>Op de site</th></tr></thead>
+      <thead><tr><th></th><th>Print</th><th>Op voorraad</th><th>Op de site</th></tr></thead>
       <tbody id="rows"></tbody>
     </table>
     <section class="sales"><div class="section-head"><h2 class="h2">Laatste verkopen</h2></div><ul id="sales"></ul></section>
@@ -67,19 +67,19 @@
     return j;
   };
   const state = (p) => {
-    const n = p.variants.reduce((a, v) => a + (STOCK[p.slug]?.[v.id] || 0), 0);
+    const n = STOCK[p.slug] || 0;
     return n === 0 ? ['out', 'Uitverkocht'] : n <= 10 ? ['few', `Nog ${n}`] : ['ok', 'Niet zichtbaar'];
   };
-  const stepper = (slug, id) => `<span class="step"><button data-s="${slug}" data-v="${id}" data-d="-1" aria-label="Min">−</button><input inputmode="numeric" data-s="${slug}" data-v="${id}" value="${STOCK[slug]?.[id] ?? 0}" aria-label="Aantal"><button data-s="${slug}" data-v="${id}" data-d="1" aria-label="Plus">+</button></span>`;
+  const stepper = slug => `<span class="step"><button data-s="${slug}" data-d="-1" aria-label="Min">−</button><input inputmode="numeric" data-s="${slug}" value="${STOCK[slug] ?? 0}" aria-label="Aantal"><button data-s="${slug}" data-d="1" aria-label="Plus">+</button></span>`;
   const render = () => {
-    const rows = DATA.prints.map(p => { const [c, l] = state(p); const ch = p.variants.some(v => STOCK[p.slug][v.id] !== ORIG[p.slug][v.id]);
-      return `<tr class="${ch ? 'changed' : ''}"><td><img src="img/thumb/${p.slug}-420.webp" alt=""></td><td><div class="t">${p.title}</div><div class="s">${p.size}, oplage ${p.edition}</div></td><td>${stepper(p.slug, 'pp')}</td><td>${stepper(p.slug, 'lijst')}</td><td><span class="state ${c}">${l}</span></td></tr>`; }).join('');
-    const b = STOCK.boek.boek, bc = b !== ORIG.boek.boek;
-    $('#rows').innerHTML = rows + `<tr class="${bc ? 'changed' : ''}"><td><img src="img/boek.webp" alt=""></td><td><div class="t">Het boek</div><div class="s">€ 35</div></td><td>${stepper('boek', 'boek')}</td><td></td><td><span class="state ${b === 0 ? 'out' : b <= 10 ? 'few' : 'ok'}">${b === 0 ? 'Uitverkocht' : b <= 10 ? 'Nog ' + b : 'Niet zichtbaar'}</span></td></tr>`;
+    const rows = DATA.prints.map(p => { const [c, l] = state(p); const ch = STOCK[p.slug] !== ORIG[p.slug];
+      return `<tr class="${ch ? 'changed' : ''}"><td><img src="img/thumb/${p.slug}-420.webp" alt=""></td><td><div class="t">${p.title}</div><div class="s">${p.size}, oplage ${p.edition}</div></td><td>${stepper(p.slug)}</td><td><span class="state ${c}">${l}</span></td></tr>`; }).join('');
+    const b = STOCK.boek, bc = b !== ORIG.boek;
+    $('#rows').innerHTML = rows + `<tr class="${bc ? 'changed' : ''}"><td><img src="img/boek.webp" alt=""></td><td><div class="t">Het boek</div><div class="s">€ ${DATA.boek.price / 100}</div></td><td>${stepper('boek')}</td><td><span class="state ${b === 0 ? 'out' : b <= 10 ? 'few' : 'ok'}">${b === 0 ? 'Uitverkocht' : b <= 10 ? 'Nog ' + b : 'Niet zichtbaar'}</span></td></tr>`;
     const n = changes(); $('#save').disabled = n === 0; $('#status').textContent = n ? `${n} wijziging${n > 1 ? 'en' : ''}, nog niet opgeslagen` : 'Alles is opgeslagen';
   };
-  const changes = () => { let n = 0; for (const s in STOCK) for (const v in STOCK[s]) if (STOCK[s][v] !== ORIG[s]?.[v]) n++; return n; };
-  const set = (s, v, val) => { STOCK[s][v] = Math.max(0, Math.min(9999, parseInt(val, 10) || 0)); };
+  const changes = () => Object.keys(STOCK).filter(s => STOCK[s] !== ORIG[s]).length;
+  const set = (s, val) => { STOCK[s] = Math.max(0, Math.min(9999, parseInt(val, 10) || 0)); };
   const fmt = iso => new Date(iso).toLocaleString('nl-NL', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
   const showSales = (sales) => {
     $('#sales').innerHTML = sales.length ? sales.map(s => `<li><b>${fmt(s.at)}</b> · ${s.items.map(([sl, v, q]) => `${q}× ${(DATA.prints.find(p => p.slug === sl) || { title: 'Boek' }).title}${v === 'lijst' ? ' (ingelijst)' : ''}`).join(', ')} · € ${s.bedrag || '?'} · ${s.klant?.n || ''}${s.test ? ' · <i>test</i>' : ''}</li>`).join('') : '<li>Nog geen verkopen via de site.</li>';
@@ -95,8 +95,8 @@
     try { await start(); try { sessionStorage.setItem('twdzz-pw', pw); } catch (x) {} }
     catch (err) { $('#lerr').textContent = err.message; $('#lerr').hidden = false; }
   });
-  document.addEventListener('click', e => { const b = e.target.closest('button[data-d]'); if (!b) return; set(b.dataset.s, b.dataset.v, STOCK[b.dataset.s][b.dataset.v] + (+b.dataset.d)); render(); });
-  document.addEventListener('change', e => { const i = e.target.closest('input[data-s]'); if (!i) return; set(i.dataset.s, i.dataset.v, i.value); render(); });
+  document.addEventListener('click', e => { const b = e.target.closest('button[data-d]'); if (!b) return; set(b.dataset.s, STOCK[b.dataset.s] + (+b.dataset.d)); render(); });
+  document.addEventListener('change', e => { const i = e.target.closest('input[data-s]'); if (!i) return; set(i.dataset.s, i.value); render(); });
   $('#save').addEventListener('click', async () => {
     $('#save').disabled = true; $('#status').textContent = 'Bezig met opslaan';
     try { const j = await api({ action: 'save', stock: STOCK, asOf: ASOF }); ASOF = j.asOf; STOCK = j.stock; ORIG = structuredClone(j.stock); render(); $('#status').textContent = 'Opgeslagen ' + fmt(j.updatedAt) + '. Direct zichtbaar op de site.'; }
