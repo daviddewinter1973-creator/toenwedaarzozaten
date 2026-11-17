@@ -46,6 +46,9 @@
   };
 
   /* ---------- bouwstenen ---------- */
+  const pdf = k => `pdf/krant/${k.slug}.pdf`;
+  const MAANDEN = ['januari','februari','maart','april','mei','juni','juli','augustus','september','oktober','november','december'];
+  const datum = d => d ? `${+d.slice(6, 8)} ${MAANDEN[+d.slice(4, 6) - 1]} ${d.slice(0, 4)}` : '';
   const fromPrice = p => Math.min(...p.variants.map(v => v.price));
   const sizeClass = p => p.xl ? 'xl' : p.size.startsWith('23') ? 'klein' : 'groot';
   const artImg = (p, cls = '', sizes = '(max-width:760px) 100vw, 58vw', lazy = false, prio = true) =>
@@ -112,7 +115,7 @@
             <div class="views">
               <button class="on" data-view="art"><img src="img/thumb/${p.slug}-420.webp" alt=""><span>Tekening</span></button>
               <button data-view="frame"><img src="img/frame/${p.slug}.webp" alt=""><span>Ingelijst</span></button>
-              ${k ? `<button data-krant="${k.slug}"><img src="img/krant/${k.slug}-440.webp" alt="" style="object-position:top"><span>De krant</span></button>` : ''}
+              ${k ? `<a class="vlink" href="${pdf(k)}" target="_blank" rel="noopener"><img src="img/krant/${k.slug}-440.webp" alt="" style="object-position:top"><span>De krant</span></a>` : ''}
             </div>
           </figure>
           <div class="info">
@@ -134,16 +137,16 @@
                 </label>`; }).join('')}
             </fieldset>
             <button class="btn wide" data-add="${p.slug}" ${s === 'out' ? 'disabled' : ''}>${s === 'out' ? 'Uitverkocht' : 'In winkelwagen'}</button>
-            <p class="note">${p.xl ? 'Te groot voor de post: ophalen in Galerie Staaf aan de Bloemgracht, of mail ons voor bezorging in Amsterdam.' : `Verzending in Nederland ${euroExact(DATA.shipping.zones[0].pp)}, ingelijst ${euroExact(DATA.shipping.zones[0].lijst)}. Gratis ophalen in Galerie Staaf aan de Bloemgracht.`}</p>
+            <p class="note">${p.xl ? 'Te groot voor de post: ophalen in Galerie Staaf aan de Bloemgracht, of mail ons voor bezorging in Amsterdam.' : `Verzending in Nederland ${euroExact(DATA.shipping.zones[0].pp)}, ingelijst ${euroExact(DATA.shipping.zones[0].lijst)} (stevig verpakt). Gratis ophalen in Galerie Staaf aan de Bloemgracht.`}</p>
           </div>
         </div>
         ${k ? `
         <section class="paper">
-          <button class="paper-img" data-krant="${k.slug}" aria-label="Lees de krantenpagina van ${esc(k.title)}"><img src="img/krant/${k.slug}.webp" alt="De pagina over ${esc(k.title)} in PS van Het Parool" loading="lazy" width="1059" height="1359"></button>
+          <a class="paper-img" href="${pdf(k)}" target="_blank" rel="noopener" aria-label="Open de krantenpagina van ${esc(k.title)} als PDF"><img src="img/krant/${k.slug}.webp" alt="De pagina over ${esc(k.title)} in PS van Het Parool" loading="lazy" width="1059" height="1359"></a>
           <div>
-            <p class="kicker">PS van Het Parool</p>
+            <p class="kicker">PS van Het Parool · ${datum(k.date)}</p>
             <blockquote>Zo stond ${esc(k.title)} in de krant: de tekening van Staaf, met het verhaal van Rogier Cornelisse ernaast.</blockquote>
-            <button class="btn line" data-krant="${k.slug}">Lees de krantenpagina</button>
+            <a class="btn outline" href="${pdf(k)}" target="_blank" rel="noopener">Lees de krantenpagina (PDF)</a>
           </div>
         </section>` : ''}
         ${others.length ? `<section class="more"><div class="section-head"><h2 class="h2">Ook in dit formaat</h2><a class="textlink" href="#shop">Alle prints</a></div><div class="grid">${others.map(card).join('')}</div></section>` : ''}`;
@@ -152,15 +155,15 @@
     krant() {
       return `
         <div class="section-head"><h1 class="h2">De krant</h1><span class="label">${DATA.krant.length} pagina's · PS van Het Parool</span></div>
-        <p class="lede">Elke vrijdag een terras: een tekening van Staaf en een verhaal van Rogier. Klik op een pagina om hem te lezen.</p>
-        <div class="krant-grid">${DATA.krant.map((k, i) => `<button data-kidx="${i}"><img src="img/krant/${k.slug}-440.webp" alt="Krantenpagina ${esc(k.title)}" loading="lazy" width="1059" height="1359"><span>${esc(k.title)}</span><em>Aflevering ${i + 1}</em></button>`).join('')}</div>`;
+        <p class="lede">Elke vrijdag een terras: een tekening van Staaf en een verhaal van Rogier. Klik op een pagina om de krant als PDF te openen.</p>
+        <div class="krant-grid">${DATA.krant.map((k, i) => `<a href="${pdf(k)}" target="_blank" rel="noopener"><img src="img/krant/${k.slug}-440.webp" alt="Krantenpagina ${esc(k.title)}" loading="lazy" width="1059" height="1359"><span>${esc(k.title)}</span><em>${datum(k.date)} · PDF</em></a>`).join('')}</div>`;
     },
 
     boek() {
       const out = left('boek', 'boek') === 0;
       return `
         <div class="split">
-          <img src="img/boek.webp" alt="Omslag van het boek Toen we daar zo zaten" width="1181" height="1181" data-zoom="img/boek.webp" style="cursor:zoom-in">
+          <div class="boek-cover"><button class="inkijk-open" data-inkijk aria-label="Blader door het boek"><img src="img/boek.webp" alt="Omslag van het boek Toen we daar zo zaten" width="1181" height="1181"><span class="inkijk-badge">Inkijkexemplaar</span></button></div>
           <div>
             <p class="kicker">Het boek</p>
             <h1 class="display">Alle 52 verhalen en tekeningen</h1>
@@ -170,13 +173,16 @@
             </div>
             ${DATA.boek.note && !out ? `<p class="scarcity">${esc(DATA.boek.note)}</p>` : ''}
             <p class="price">${euro(DATA.boek.price)}</p>
-            <button class="btn" data-add="boek" ${out ? 'disabled' : ''}>${out ? 'Uitverkocht' : 'In winkelwagen'}</button>
+            <div class="links" style="gap:18px 22px"><button class="btn" data-add="boek" ${out ? 'disabled' : ''}>${out ? 'Uitverkocht' : 'In winkelwagen'}</button><button class="btn outline" data-inkijk>Blader door het boek</button></div>
+            <p class="note">116 pagina's, 25 × 25 cm, gebonden.</p>
           </div>
         </div>
         <div class="videos">
-          ${(DATA.videos || []).map(({ title: t, vimeo: id }) => `
-            <div><p class="label">${t}</p>
-              <div class="video"><iframe src="https://player.vimeo.com/video/${id}&dnt=1" title="${t}" allow="fullscreen; picture-in-picture" loading="lazy"></iframe></div></div>`).join('')}
+          ${(DATA.videos || []).map(v => `
+            <div><p class="label">${esc(v.title)}</p>
+              <div class="video">${v.src
+                ? `<video controls preload="none" playsinline poster="${v.poster}" src="${v.src}"></video>`
+                : `<iframe src="https://player.vimeo.com/video/${v.vimeo}&dnt=1" title="${esc(v.title)}" allow="fullscreen; picture-in-picture" loading="lazy"></iframe>`}</div></div>`).join('')}
         </div>`;
     },
 
@@ -243,7 +249,7 @@
     },
 
     bedankt() {
-      return `<div class="empty"><p class="kicker">Bestelling ontvangen</p><h1 class="display">Dank je wel</h1><p class="lede">Zodra je betaling binnen is, maken we je bestelling klaar. Je krijgt een bevestiging per e-mail. Vragen? Mail naar staaf@chello.nl.</p><a class="btn line" href="#shop">Terug naar de prints</a></div>`;
+      return `<div class="empty"><p class="kicker">Bestelling ontvangen</p><h1 class="display">Dank je wel</h1><p class="lede">Zodra je betaling binnen is, maken we je bestelling klaar. Je krijgt een bevestiging per e-mail. Vragen? Mail naar staaf@chello.nl.</p><a class="btn outline" href="#shop">Terug naar de prints</a></div>`;
     },
 
     notfound() { return `<div class="empty"><h1 class="display">Niet gevonden</h1><a class="btn" href="#shop">Naar de prints</a></div>`; }
@@ -358,6 +364,48 @@
     img.onload = () => { c.querySelector('.ph').insertBefore(img, c.querySelector('.tag')); requestAnimationFrame(() => c.classList.add('hovered')); };
   });
 
+  /* ---------- inkijkexemplaar ---------- */
+  const ink = { el: null, i: 0, list: [] };
+  const inkPages = () => {
+    const wide = matchMedia('(min-width:761px)').matches;
+    return wide ? DATA.boek.inkijk : DATA.boek.inkijk.flat().map(p => [p]);
+  };
+  const inkShow = (dir = 0) => {
+    const sp = ink.list[ink.i], stage = $('.ink-stage', ink.el);
+    stage.className = 'ink-stage ' + (sp.length === 2 ? 'two' : 'one') + (dir ? (dir > 0 ? ' in-next' : ' in-prev') : '');
+    stage.innerHTML = sp.map(p => `<img src="img/inkijk/${p}.webp" alt="${p === 'voor' ? 'Voorkant' : p === 'achter' ? 'Achterkant' : 'Pagina ' + parseInt(p.slice(1), 10)}">`).join('');
+    $('.ink-count', ink.el).textContent = `${ink.i + 1} / ${ink.list.length}`;
+    $('.ink-prev', ink.el).disabled = ink.i === 0; $('.ink-next', ink.el).disabled = ink.i === ink.list.length - 1;
+    (ink.list[ink.i + 1] || []).forEach(p => { const im = new Image(); im.src = `img/inkijk/${p}.webp`; });
+  };
+  const inkGo = d => { const n = ink.i + d; if (n < 0 || n >= ink.list.length) return; ink.i = n; inkShow(d); };
+  const inkOpen = () => {
+    if (!ink.el) {
+      ink.el = document.createElement('div'); ink.el.className = 'inkijk'; ink.el.setAttribute('role', 'dialog'); ink.el.setAttribute('aria-modal', 'true'); ink.el.setAttribute('aria-label', 'Inkijkexemplaar');
+      ink.el.innerHTML = `<div class="ink-top"><span class="label">Inkijkexemplaar · Toen we daar zo zaten</span><button class="ink-close" aria-label="Sluiten">×</button></div>
+        <div class="ink-stage"></div>
+        <div class="ink-bar"><button class="ink-prev" aria-label="Vorige pagina">‹</button><span class="ink-count"></span><button class="ink-next" aria-label="Volgende pagina">›</button></div>
+        <p class="ink-foot">Je bladert door de eerste pagina's. Het hele boek telt 52 verhalen en tekeningen.</p>`;
+      document.body.appendChild(ink.el);
+      ink.el.addEventListener('click', e => {
+        if (e.target.closest('.ink-close') || e.target === ink.el) return inkClose();
+        if (e.target.closest('.ink-prev')) return inkGo(-1);
+        if (e.target.closest('.ink-next')) return inkGo(1);
+        const st = e.target.closest('.ink-stage'); if (st) { const r = st.getBoundingClientRect(); inkGo(e.clientX < r.left + r.width / 2 ? -1 : 1); }
+      });
+      let x0 = null;
+      ink.el.addEventListener('touchstart', e => { x0 = e.touches[0].clientX; }, { passive: true });
+      ink.el.addEventListener('touchend', e => { if (x0 == null) return; const dx = e.changedTouches[0].clientX - x0; if (Math.abs(dx) > 40) inkGo(dx < 0 ? 1 : -1); x0 = null; });
+    }
+    ink.list = inkPages(); ink.i = 0; ink.ret = document.activeElement;
+    ink.el.hidden = false; document.body.style.overflow = 'hidden'; inkShow(); $('.ink-next', ink.el).focus();
+  };
+  const inkClose = () => { ink.el.hidden = true; document.body.style.overflow = ''; ink.ret?.focus?.(); };
+  document.addEventListener('keydown', e => {
+    if (!ink.el || ink.el.hidden) return;
+    if (e.key === 'Escape') inkClose(); if (e.key === 'ArrowRight') inkGo(1); if (e.key === 'ArrowLeft') inkGo(-1);
+  });
+
   /* ---------- klikken ---------- */
   view.addEventListener('click', e => {
     const t = e.target;
@@ -372,6 +420,7 @@
       document.querySelectorAll('.views button').forEach(b => b.classList.toggle('on', b === vw)); return;
     }
     if (t.closest('.stage .main')) { const slug = location.hash.slice(7); const isFrame = t.src.includes('/frame/'); lbOpen([{ src: isFrame ? `img/frame/${slug}.webp` : `img/art/${slug}.webp`, caption: t.alt }], 0); return; }
+    if (t.closest('[data-inkijk]')) { inkOpen(); return; }
     const z = t.closest('[data-zoom]'); if (z) { lbOpen([{ src: z.dataset.zoom, caption: z.alt }], 0); return; }
     const add = t.closest('[data-add]');
     if (add) {

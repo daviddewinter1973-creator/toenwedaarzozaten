@@ -12,6 +12,7 @@
     items.forEach(function (i) {
       if (i.slug === 'boek') books += i.qty; else if (i.variant === 'lijst') framed += i.qty; else flat += i.qty;
     });
+    if (framed && z.lijst == null) return { price: 0, ok: false, reason: 'Ingelijste prints versturen we alleen binnen Europa. Kies passe-partout, ophalen in de galerie, of mail ons.' };
     var price = 0;
     if (framed) price += Math.ceil(framed / z.perDoos) * z.lijst;      // ingelijst: per doos
     if (flat) price += framed ? 0 : z.pp;                                // passe-partouts gaan mee in de doos, anders eigen plat pakket

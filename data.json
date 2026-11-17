@@ -1504,211 +1504,263 @@
  "krant": [
   {
    "slug": "de-reiger",
-   "title": "De Reiger"
+   "title": "De Reiger",
+   "date": "20180907"
   },
   {
    "slug": "van-leeuwen",
-   "title": "Van Leeuwen"
+   "title": "Van Leeuwen",
+   "date": "20180914"
   },
   {
    "slug": "p-king",
-   "title": "P.King"
+   "title": "P.King",
+   "date": "20180921"
   },
   {
    "slug": "de-eland",
-   "title": "De Eland"
+   "title": "De Eland",
+   "date": "20180928"
   },
   {
    "slug": "wildschut",
-   "title": "Wildschut"
+   "title": "Wildschut",
+   "date": "20181005"
   },
   {
    "slug": "pllek",
-   "title": "Pllek"
+   "title": "Pllek",
+   "date": "20181012"
   },
   {
    "slug": "nemo",
-   "title": "NEMO"
+   "title": "NEMO",
+   "date": "20181019"
   },
   {
    "slug": "gent-aan-de-schinkel",
-   "title": "Gent aan de Schinkel"
+   "title": "Gent aan de Schinkel",
+   "date": "20181026"
   },
   {
    "slug": "dok48",
-   "title": "DOK48"
+   "title": "DOK48",
+   "date": "20181102"
   },
   {
    "slug": "brandon",
-   "title": "Brandon"
+   "title": "Brandon",
+   "date": "20181109"
   },
   {
    "slug": "kuijper",
-   "title": "Kuijper"
+   "title": "Kuijper",
+   "date": "20181116"
   },
   {
    "slug": "stadsschouwburg",
-   "title": "Stadsschouwburg"
+   "title": "Stadsschouwburg",
+   "date": "20181123"
   },
   {
    "slug": "steiger-4",
-   "title": "Steiger 4"
+   "title": "Steiger 4",
+   "date": "20181130"
   },
   {
    "slug": "pacific-parc",
-   "title": "Pacific Parc"
+   "title": "Pacific Parc",
+   "date": "20181207"
   },
   {
    "slug": "gruter",
-   "title": "Gruter"
+   "title": "Gruter",
+   "date": "20181214"
   },
   {
    "slug": "a-beautiful-mess",
-   "title": "A Beautiful Mess"
+   "title": "A Beautiful Mess",
+   "date": "20181221"
   },
   {
    "slug": "t-smalle",
-   "title": "'t Smalle"
+   "title": "'t Smalle",
+   "date": "20181228"
   },
   {
    "slug": "de-hoek",
-   "title": "De Hoek"
+   "title": "De Hoek",
+   "date": "20190104"
   },
   {
    "slug": "t-sluisje",
-   "title": "'t Sluisje"
+   "title": "'t Sluisje",
+   "date": "20190111"
   },
   {
    "slug": "kingfisher",
-   "title": "Kingfisher"
+   "title": "Kingfisher",
+   "date": "20190118"
   },
   {
    "slug": "schiller",
-   "title": "Schiller"
+   "title": "Schiller",
+   "date": "20190125"
   },
   {
    "slug": "morlang",
-   "title": "Morlang"
+   "title": "Morlang",
+   "date": "20190201"
   },
   {
    "slug": "abina",
-   "title": "Abina"
+   "title": "Abina",
+   "date": "20190208"
   },
   {
    "slug": "zouk",
-   "title": "Zouk"
+   "title": "Zouk",
+   "date": "20190215"
   },
   {
    "slug": "thuis-aan-de-amstel",
-   "title": "Thuis aan de Amstel"
+   "title": "Thuis aan de Amstel",
+   "date": "20190222"
   },
   {
    "slug": "festina-lente",
-   "title": "Festina Lente"
+   "title": "Festina Lente",
+   "date": "20190301"
   },
   {
    "slug": "de-uitvlugt",
-   "title": "De Uitvlugt"
+   "title": "De Uitvlugt",
+   "date": "20190308"
   },
   {
    "slug": "tabac",
-   "title": "Tabac"
+   "title": "Tabac",
+   "date": "20190315"
   },
   {
    "slug": "noorderlicht",
-   "title": "Noorderlicht"
+   "title": "Noorderlicht",
+   "date": "20190322"
   },
   {
    "slug": "cafe-americain",
-   "title": "Café Américain"
+   "title": "Café Américain",
+   "date": "20190329"
   },
   {
    "slug": "hannekes-boom",
-   "title": "Hannekes Boom"
+   "title": "Hannekes Boom",
+   "date": "20190405"
   },
   {
    "slug": "brandstof",
-   "title": "Brandstof"
+   "title": "Brandstof",
+   "date": "20190412"
   },
   {
    "slug": "old-sailor",
-   "title": "Old Sailor"
+   "title": "Old Sailor",
+   "date": "20190419"
   },
   {
    "slug": "de-prins",
-   "title": "De Prins"
+   "title": "De Prins",
+   "date": "20190426"
   },
   {
    "slug": "de-brabantse-aap",
-   "title": "De Brabantse Aap"
+   "title": "De Brabantse Aap",
+   "date": "20190503"
   },
   {
    "slug": "broodje-bert",
-   "title": "Broodje Bert"
+   "title": "Broodje Bert",
+   "date": "20190510"
   },
   {
    "slug": "mads",
-   "title": "Mads"
+   "title": "Mads",
+   "date": "20190517"
   },
   {
    "slug": "de-oude-wester",
-   "title": "De Oude Wester"
+   "title": "De Oude Wester",
+   "date": "20190524"
   },
   {
    "slug": "oerknal",
-   "title": "Oerknal"
+   "title": "Oerknal",
+   "date": "20190531"
   },
   {
    "slug": "krom",
-   "title": "Krom"
+   "title": "Krom",
+   "date": "20190607"
   },
   {
    "slug": "pompet",
-   "title": "Pompet"
+   "title": "Pompet",
+   "date": "20190614"
   },
   {
    "slug": "pieper",
-   "title": "Pieper"
+   "title": "Pieper",
+   "date": "20190621"
   },
   {
    "slug": "radion",
-   "title": "Radion"
+   "title": "Radion",
+   "date": "20190628"
   },
   {
    "slug": "de-balie",
-   "title": "De Balie"
+   "title": "De Balie",
+   "date": "20190705"
   },
   {
    "slug": "schuim",
-   "title": "Schuim"
+   "title": "Schuim",
+   "date": "20190712"
   },
   {
    "slug": "camping-zeeburg",
-   "title": "Camping Zeeburg"
+   "title": "Camping Zeeburg",
+   "date": "20190718"
   },
   {
    "slug": "de-magere-brug",
-   "title": "De Magere Brug"
+   "title": "De Magere Brug",
+   "date": "20190725"
   },
   {
    "slug": "de-blaffende-vis",
-   "title": "De Blaffende Vis"
+   "title": "De Blaffende Vis",
+   "date": "20190801"
   },
   {
    "slug": "de-engelbewaarder",
-   "title": "De Engelbewaarder"
+   "title": "De Engelbewaarder",
+   "date": "20190808"
   },
   {
    "slug": "amstel-hotel",
-   "title": "Amstel Hotel"
+   "title": "Amstel Hotel",
+   "date": "20190815"
   },
   {
    "slug": "de-nieuwe-lelie",
-   "title": "De Nieuwe Lelie"
+   "title": "De Nieuwe Lelie",
+   "date": "20190822"
   },
   {
    "slug": "galerie-staaf",
-   "title": "Galerie Staaf"
+   "title": "Galerie Staaf",
+   "date": "20190829"
   }
  ],
  "boek": {
@@ -1716,10 +1768,53 @@
   "title": "Toen we daar zo zaten (boek)",
   "price": 4900,
   "stock": 999,
-  "note": "Bijna uitverkocht"
+  "note": "Bijna uitverkocht",
+  "inkijk": [
+   [
+    "voor"
+   ],
+   [
+    "p001"
+   ],
+   [
+    "p002",
+    "p003"
+   ],
+   [
+    "p004",
+    "p005"
+   ],
+   [
+    "p006",
+    "p007"
+   ],
+   [
+    "p008",
+    "p009"
+   ],
+   [
+    "p010",
+    "p011"
+   ],
+   [
+    "p012",
+    "p013"
+   ],
+   [
+    "p014",
+    "p015"
+   ],
+   [
+    "p016",
+    "p017"
+   ],
+   [
+    "achter"
+   ]
+  ]
  },
  "shipping": {
-  "source": "PostNL basistarieven online frankering, 12 juli 2026",
+  "source": "PostNL basistarieven juli 2026; ingelijst inclusief stevige verpakking",
   "pickup": {
    "id": "pickup",
    "label": "Ophalen bij Galerie Staaf, Bloemgracht",
@@ -1729,17 +1824,17 @@
    {
     "id": "nl",
     "label": "Nederland",
-    "boek": 455,
+    "boek": 745,
     "pp": 745,
-    "lijst": 745,
-    "perDoos": 3
+    "lijst": 1750,
+    "perDoos": 2
    },
    {
     "id": "be",
     "label": "België",
     "boek": 1000,
     "pp": 1225,
-    "lijst": 1925,
+    "lijst": 2950,
     "perDoos": 2
    },
    {
@@ -1747,7 +1842,7 @@
     "label": "Duitsland, Frankrijk, Spanje, Italië, Luxemburg",
     "boek": 1100,
     "pp": 1250,
-    "lijst": 2000,
+    "lijst": 2950,
     "perDoos": 2
    },
    {
@@ -1755,7 +1850,7 @@
     "label": "Overig Europa",
     "boek": 1100,
     "pp": 1250,
-    "lijst": 2000,
+    "lijst": 2950,
     "perDoos": 2
    },
    {
@@ -1763,7 +1858,7 @@
     "label": "Verenigd Koninkrijk",
     "boek": 1375,
     "pp": 2000,
-    "lijst": 2675,
+    "lijst": null,
     "perDoos": 2
    },
    {
@@ -1771,7 +1866,7 @@
     "label": "Buiten Europa",
     "boek": 2600,
     "pp": 3200,
-    "lijst": 5100,
+    "lijst": null,
     "perDoos": 2
    }
   ]
@@ -1780,6 +1875,13 @@
   {
    "title": "Het crowdfundingfilmpje",
    "vimeo": "585264794?h=1a469316f3"
+  },
+  {
+   "title": "Bij de drukker",
+   "src": "video/bij-de-drukker.mp4",
+   "poster": "video/bij-de-drukker.webp",
+   "w": 1920,
+   "h": 900
   }
  ]
 }
