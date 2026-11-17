@@ -134,7 +134,7 @@
                 </label>`; }).join('')}
             </fieldset>
             <button class="btn wide" data-add="${p.slug}" ${s === 'out' ? 'disabled' : ''}>${s === 'out' ? 'Uitverkocht' : 'In winkelwagen'}</button>
-            <p class="note">Verzending in Nederland ${euro(725)}. Gratis ophalen in Galerie Staaf aan de Bloemgracht.</p>
+            <p class="note">${p.xl ? 'Te groot voor de post: ophalen in Galerie Staaf aan de Bloemgracht, of mail ons voor bezorging in Amsterdam.' : `Verzending in Nederland ${euroExact(DATA.shipping.zones[0].pp)}, ingelijst ${euroExact(DATA.shipping.zones[0].lijst)}. Gratis ophalen in Galerie Staaf aan de Bloemgracht.`}</p>
           </div>
         </div>
         ${k ? `
@@ -168,12 +168,13 @@
               <p>Kunstenaar David (Staaf) de Winter en schrijver Rogier Cornelisse maakten een serie liefdevolle portretten, in woord en beeld, vanaf de mooiste terrassen van Amsterdam. Van Abina tot Zouk, van de Oudezijds tot de Nieuwendammerdijk en van P.King tot De Hoek.</p>
               <p>De tekeningen en de teksten stonden een jaar lang iedere week in bijlage PS van Het Parool en zijn nu gebundeld in één boek.</p>
             </div>
+            ${DATA.boek.note && !out ? `<p class="scarcity">${esc(DATA.boek.note)}</p>` : ''}
             <p class="price">${euro(DATA.boek.price)}</p>
             <button class="btn" data-add="boek" ${out ? 'disabled' : ''}>${out ? 'Uitverkocht' : 'In winkelwagen'}</button>
           </div>
         </div>
         <div class="videos">
-          ${[['Het crowdfundingfilmpje', '585264794?h=1a469316f3'], ['Bij de drukker', '630845011?h=2d0d074a84']].map(([t, id]) => `
+          ${(DATA.videos || []).map(({ title: t, vimeo: id }) => `
             <div><p class="label">${t}</p>
               <div class="video"><iframe src="https://player.vimeo.com/video/${id}&dnt=1" title="${t}" allow="fullscreen; picture-in-picture" loading="lazy"></iframe></div></div>`).join('')}
         </div>`;
@@ -218,7 +219,11 @@
           <div>${lines}</div>
           <form class="summary" id="checkout" novalidate>
             <h2 class="h2">Bezorging</h2>
-            ${DATA.shipping.map((s, i) => `<label class="ship-opt"><input type="radio" name="ship" value="${s.id}" ${i === 0 ? 'checked' : ''}><span>${esc(s.label)}</span><b>${s.price ? euroExact(s.price) : 'gratis'}</b></label>`).join('')}
+            <label class="ship-opt"><input type="radio" name="ship" value="post" ${hasXL() ? 'disabled' : 'checked'}><span>Verzenden met PostNL</span><b id="ship-post"></b></label>
+            <label class="ship-opt"><input type="radio" name="ship" value="pickup" ${hasXL() ? 'checked' : ''}><span>${esc(DATA.shipping.pickup.label)}</span><b>gratis</b></label>
+            ${hasXL() ? '<p class="note">De XL-editie is te groot voor de post. Je haalt hem op in de galerie, of mail ons voor bezorging in Amsterdam.</p>' : ''}
+            <div id="zonebox"><label for="f-zone">Verzenden naar</label>
+              <select id="f-zone" name="zone">${DATA.shipping.zones.map(z => `<option value="${z.id}">${esc(z.label)}</option>`).join('')}</select></div>
             <h2 class="h2" style="margin-top:30px">Je gegevens</h2>
             <label for="f-name">Naam</label><input id="f-name" name="name" autocomplete="name" required>
             <label for="f-email">E-mail</label><input id="f-email" name="email" type="email" autocomplete="email" required>
@@ -227,7 +232,7 @@
               <label for="f-street">Straat en huisnummer</label><input id="f-street" name="street" autocomplete="street-address">
               <div class="row2"><div><label for="f-zip">Postcode</label><input id="f-zip" name="zip" autocomplete="postal-code"></div>
               <div><label for="f-city">Plaats</label><input id="f-city" name="city" autocomplete="address-level2"></div></div>
-              <label for="f-country">Land</label><input id="f-country" name="country" autocomplete="country-name" value="Nederland">
+              <div id="countrybox"><label for="f-country">Land</label><input id="f-country" name="country" autocomplete="country-name"></div>
             </div>
             <div class="totals" id="totals"></div>
             <button class="btn wide" type="submit">Betalen</button>
@@ -277,26 +282,37 @@
   };
 
   /* ---------- afrekenen ---------- */
-  const shipping = () => { const sel = $('input[name=ship]:checked'); return DATA.shipping.find(s => s.id === (sel ? sel.value : 'nl')); };
+  const hasXL = () => cart.some(l => DATA.prints.find(p => p.slug === l.slug)?.xl);
+  const shipItems = () => cart.map(l => ({ slug: l.slug, variant: l.variant, qty: l.qty, xl: !!DATA.prints.find(p => p.slug === l.slug)?.xl }));
+  const shipping = () => {
+    const pickup = $('input[name=ship]:checked')?.value === 'pickup';
+    const zone = pickup ? 'pickup' : ($('#f-zone')?.value || 'nl');
+    return { zone, pickup, ...window.TWDZZShipping.calc(DATA.shipping, shipItems(), zone) };
+  };
   const renderTotals = () => {
     const sub = cart.reduce((a, l) => { const it = findItem(l); return a + (it ? it.price * l.qty : 0); }, 0);
     const s = shipping();
-    $('#totals').innerHTML = `<div><span>Subtotaal</span><span>${euroExact(sub)}</span></div><div><span>Bezorging</span><span>${s.price ? euroExact(s.price) : 'gratis'}</span></div><div class="grand"><span>Totaal</span><span>${euroExact(sub + s.price)}</span></div>`;
-    $('#addr').hidden = s.id === 'pickup';
+    const post = window.TWDZZShipping.calc(DATA.shipping, shipItems(), $('#f-zone').value);
+    $('#ship-post').textContent = post.ok ? euroExact(post.price) : '';
+    $('#totals').innerHTML = `<div><span>Subtotaal</span><span>${euroExact(sub)}</span></div><div><span>Bezorging</span><span>${s.pickup ? 'gratis' : euroExact(s.price)}</span></div><div class="grand"><span>Totaal</span><span>${euroExact(sub + s.price)}</span></div>`;
+    $('#addr').hidden = $('#zonebox').hidden = s.pickup;
+    $('#countrybox').hidden = s.zone === 'nl';
   };
   const checkout = async form => {
     const err = $('#err'); err.hidden = true;
     const f = Object.fromEntries(new FormData(form));
     const s = shipping();
-    const need = ['name', 'email'].concat(s.id === 'pickup' ? [] : ['street', 'zip', 'city', 'country']);
+    if (s.zone === 'nl') f.country = 'Nederland';
+    if (!s.ok) { err.textContent = s.reason; err.hidden = false; return; }
+    const need = ['name', 'email'].concat(s.pickup ? [] : ['street', 'zip', 'city', 'country']);
     if (need.some(k => !String(f[k] || '').trim()) || !/^\S+@\S+\.\S+$/.test(f.email || '')) {
-      err.textContent = 'Vul je naam, een geldig e-mailadres' + (s.id === 'pickup' ? '' : ' en je adres') + ' in.'; err.hidden = false; return;
+      err.textContent = 'Vul je naam, een geldig e-mailadres' + (s.pickup ? '' : ' en je adres') + ' in.'; err.hidden = false; return;
     }
     const btn = form.querySelector('button[type=submit]'); btn.disabled = true; btn.textContent = 'Even geduld';
     try {
       const r = await fetch('/.netlify/functions/checkout', {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ items: cart, shipping: s.id, customer: f, returnUrl: location.origin + location.pathname + '#bedankt' })
+        body: JSON.stringify({ items: cart, shipping: s.zone, customer: f, returnUrl: location.origin + location.pathname + '#bedankt' })
       });
       const j = await r.json();
       if (!r.ok || !j.checkoutUrl) throw new Error(j.error || 'Afrekenen lukt nu niet.');
@@ -372,7 +388,7 @@
     }
     const rm = t.closest('[data-rm]'); if (rm) { cart.splice(+rm.dataset.rm, 1); saveCart(); rerender(); }
   });
-  view.addEventListener('change', e => { if (e.target.name === 'ship') renderTotals(); });
+  view.addEventListener('change', e => { if (e.target.name === 'ship' || e.target.name === 'zone') renderTotals(); });
   view.addEventListener('submit', e => { e.preventDefault(); if (e.target.id === 'checkout') checkout(e.target); });
   window.addEventListener('hashchange', () => route(true));
 

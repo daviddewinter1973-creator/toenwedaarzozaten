@@ -1,6 +1,7 @@
 // Maakt een Mollie-betaling aan. Prijzen en voorraad komen altijd van de server,
 // nooit uit de browser. Nodig in Netlify: MOLLIE_API_KEY.
 import { currentStock, loadData } from './lib/voorraad.mjs';
+import '../../shipping.js';
 
 const json = (status, body) => new Response(JSON.stringify(body), {
   status, headers: { 'Content-Type': 'application/json' }
@@ -40,19 +41,22 @@ export default async (req) => {
     if (left < qty) {
       return json(409, { error: left === 0 ? `${name} is helaas uitverkocht.` : `Van ${name} zijn er nog maar ${left}.` });
     }
-    lines.push({ name, qty, price });
+    lines.push({ name, qty, price, slug, variant, xl: !!data.prints.find(x => x.slug === slug)?.xl });
     meta.push([slug, variant, qty]);
     total += price * qty;
   }
 
-  const ship = data.shipping.find(s => s.id === body.shipping) || data.shipping[0];
+  const zone = String(body.shipping || '');
+  const ship = globalThis.TWDZZShipping.calc(data.shipping, lines.map(l => ({ slug: l.slug, variant: l.variant, qty: l.qty, xl: l.xl })), zone);
+  if (!ship.ok) return json(400, { error: ship.reason });
   total += ship.price;
+  const pickup = zone === 'pickup';
 
   const c = body.customer || {};
   const clean = (s, n = 120) => String(s || '').slice(0, n).trim();
   const klant = {
     n: clean(c.name, 80), e: clean(c.email, 100), t: clean(c.phone, 30),
-    a: ship.id === 'pickup' ? 'ophalen' : [clean(c.street, 80), clean(c.zip, 12), clean(c.city, 50), clean(c.country, 40)].join(', ')
+    a: pickup ? 'ophalen' : [clean(c.street, 80), clean(c.zip, 12), clean(c.city, 50), clean(c.country, 40)].join(', ')
   };
   if (!klant.n || !/^\S+@\S+\.\S+$/.test(klant.e)) return json(400, { error: 'Vul je naam en e-mailadres in.' });
 
@@ -70,7 +74,7 @@ export default async (req) => {
       webhookUrl: `${site}/.netlify/functions/mollie-webhook`,
       locale: 'nl_NL',
       // Mollie staat max 1 KB metadata toe, daarom compact.
-      metadata: { i: meta, s: ship.id, k: klant }
+      metadata: { i: meta, s: zone, k: klant }
     })
   });
   const pay = await res.json();

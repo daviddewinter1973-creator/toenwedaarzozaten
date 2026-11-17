@@ -1714,24 +1714,72 @@
  "boek": {
   "slug": "boek",
   "title": "Toen we daar zo zaten (boek)",
-  "price": 3500,
-  "stock": 999
+  "price": 4900,
+  "stock": 999,
+  "note": "Bijna uitverkocht"
  },
- "shipping": [
-  {
-   "id": "nl",
-   "label": "Verzenden binnen Nederland (PostNL)",
-   "price": 725
-  },
-  {
-   "id": "world",
-   "label": "Verzenden buiten Nederland (PostNL)",
-   "price": 1995
-  },
-  {
+ "shipping": {
+  "source": "PostNL basistarieven online frankering, 12 juli 2026",
+  "pickup": {
    "id": "pickup",
    "label": "Ophalen bij Galerie Staaf, Bloemgracht",
    "price": 0
+  },
+  "zones": [
+   {
+    "id": "nl",
+    "label": "Nederland",
+    "boek": 455,
+    "pp": 745,
+    "lijst": 745,
+    "perDoos": 3
+   },
+   {
+    "id": "be",
+    "label": "België",
+    "boek": 1000,
+    "pp": 1225,
+    "lijst": 1925,
+    "perDoos": 2
+   },
+   {
+    "id": "eu",
+    "label": "Duitsland, Frankrijk, Spanje, Italië, Luxemburg",
+    "boek": 1100,
+    "pp": 1250,
+    "lijst": 2000,
+    "perDoos": 2
+   },
+   {
+    "id": "eu2",
+    "label": "Overig Europa",
+    "boek": 1100,
+    "pp": 1250,
+    "lijst": 2000,
+    "perDoos": 2
+   },
+   {
+    "id": "uk",
+    "label": "Verenigd Koninkrijk",
+    "boek": 1375,
+    "pp": 2000,
+    "lijst": 2675,
+    "perDoos": 2
+   },
+   {
+    "id": "row",
+    "label": "Buiten Europa",
+    "boek": 2600,
+    "pp": 3200,
+    "lijst": 5100,
+    "perDoos": 2
+   }
+  ]
+ },
+ "videos": [
+  {
+   "title": "Het crowdfundingfilmpje",
+   "vimeo": "585264794?h=1a469316f3"
   }
  ]
 }

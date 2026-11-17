@@ -162,6 +162,7 @@ main{max-width:var(--w);margin:0 auto;padding:clamp(36px,6vw,72px) var(--gut) 96
 .summary{border:1px solid var(--ink);padding:clamp(22px,3vw,34px)}
 .summary .h2{font-size:20px}
 .summary label{display:block;font:600 10.5px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--ink2);margin:16px 0 7px}
+.summary select{width:100%;padding:13px 14px;border:1px solid var(--line);background:#fff;font:16px var(--serif);color:var(--ink);border-radius:0}
 .summary input:not([type=radio]){width:100%;padding:13px 14px;border:1px solid var(--line);background:#fff;font:16px var(--serif);color:var(--ink);border-radius:0}
 .summary input:focus{outline:none;border-color:var(--ink)}
 .summary .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
