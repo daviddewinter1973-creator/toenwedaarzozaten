@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Beheer · Toen we daar zo zaten</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;800&family=Source+Serif+4:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  .wrap{max-width:980px;margin:0 auto;padding:32px var(--gut) 120px}
+  .login{max-width:360px;margin:12vh auto 0;text-align:center}
+  .login input{width:100%;padding:14px;border:1px solid var(--ink);font:16px var(--serif);margin:16px 0 12px;text-align:center}
+  table{width:100%;border-collapse:collapse;font-size:15px}
+  th{font:600 10.5px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--ink2);text-align:left;padding:10px 8px;border-bottom:1px solid var(--ink);position:sticky;top:0;background:#fff}
+  td{padding:8px;border-bottom:1px solid var(--line);vertical-align:middle}
+  td img{width:48px;height:48px;object-fit:cover}
+  td .t{font:600 12px/1.3 var(--sans);letter-spacing:.08em;text-transform:uppercase}
+  td .s{font:italic 13px var(--serif);color:var(--ink2)}
+  .step{display:inline-flex;align-items:center;border:1px solid var(--line)}
+  .step button{width:34px;height:34px;border:0;background:#fff;font:600 16px var(--sans)}
+  .step button:hover{background:#f3f3f3}
+  .step input{width:52px;height:34px;border:0;border-left:1px solid var(--line);border-right:1px solid var(--line);text-align:center;font:600 15px var(--sans)}
+  .state{font:600 10px var(--sans);letter-spacing:.12em;text-transform:uppercase;white-space:nowrap}
+  .state.out{color:var(--red)} .state.few{color:#b35a00} .state.ok{color:var(--ink3)}
+  tr.changed td{background:#f2f2f2}
+  .bar{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid var(--ink);padding:14px var(--gut);display:flex;gap:16px;align-items:center;justify-content:space-between}
+  .bar p{margin:0;font:500 13px var(--sans);color:var(--ink2)}
+  .sales{margin-top:56px}
+  .sales li{font-size:15px;padding:8px 0;border-bottom:1px solid var(--line);list-style:none}
+  .sales ul{padding:0}
+  .hint{font-size:15px;color:var(--ink2);max-width:40em}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div id="login" class="login">
+    <p class="kicker">Toen we daar zo zaten</p>
+    <h1 class="h2">Voorraad beheren</h1>
+    <form id="lf"><input type="password" id="pw" placeholder="Wachtwoord" autocomplete="current-password" aria-label="Wachtwoord" required><button class="btn wide">Inloggen</button></form>
+    <p class="err" id="lerr" hidden></p>
+  </div>
+
+  <div id="app" hidden>
+    <div class="section-head"><h1 class="h2">Voorraad</h1><a class="textlink" href="./">Naar de site</a></div>
+    <p class="hint">Vul per uitvoering in hoeveel exemplaren je nog hebt. Op de site is het aantal pas zichtbaar als er 10 of minder over zijn; bij 0 staat de print op uitverkocht. Betaalde bestellingen worden automatisch afgeboekt.</p>
+    <table>
+      <thead><tr><th></th><th>Print</th><th>Passe-partout</th><th>Ingelijst</th><th>Op de site</th></tr></thead>
+      <tbody id="rows"></tbody>
+    </table>
+    <section class="sales"><div class="section-head"><h2 class="h2">Laatste verkopen</h2></div><ul id="sales"></ul></section>
+  </div>
+</div>
+<div class="bar" id="bar" hidden><p id="status">Geen wijzigingen</p><button class="btn" id="save" disabled>Opslaan</button></div>
+
+<script>
+(() => {
+  const $ = s => document.querySelector(s);
+  let pw = '', DATA, STOCK, ORIG, ASOF;
+  try { pw = sessionStorage.getItem('twdzz-pw') || ''; } catch (e) {}
+  const api = async (body) => {
+    const r = await fetch('/.netlify/functions/beheer', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ password: pw, ...body }) });
+    const j = await r.json().catch(() => ({ error: 'Geen verbinding met de server.' }));
+    if (!r.ok) throw new Error(j.error || 'Er ging iets mis.');
+    return j;
+  };
+  const state = (p) => {
+    const n = p.variants.reduce((a, v) => a + (STOCK[p.slug]?.[v.id] || 0), 0);
+    return n === 0 ? ['out', 'Uitverkocht'] : n <= 10 ? ['few', `Nog ${n}`] : ['ok', 'Niet zichtbaar'];
+  };
+  const stepper = (slug, id) => `<span class="step"><button data-s="${slug}" data-v="${id}" data-d="-1" aria-label="Min">−</button><input inputmode="numeric" data-s="${slug}" data-v="${id}" value="${STOCK[slug]?.[id] ?? 0}" aria-label="Aantal"><button data-s="${slug}" data-v="${id}" data-d="1" aria-label="Plus">+</button></span>`;
+  const render = () => {
+    const rows = DATA.prints.map(p => { const [c, l] = state(p); const ch = p.variants.some(v => STOCK[p.slug][v.id] !== ORIG[p.slug][v.id]);
+      return `<tr class="${ch ? 'changed' : ''}"><td><img src="img/thumb/${p.slug}-420.webp" alt=""></td><td><div class="t">${p.title}</div><div class="s">${p.size}, oplage ${p.edition}</div></td><td>${stepper(p.slug, 'pp')}</td><td>${stepper(p.slug, 'lijst')}</td><td><span class="state ${c}">${l}</span></td></tr>`; }).join('');
+    const b = STOCK.boek.boek, bc = b !== ORIG.boek.boek;
+    $('#rows').innerHTML = rows + `<tr class="${bc ? 'changed' : ''}"><td><img src="img/boek.webp" alt=""></td><td><div class="t">Het boek</div><div class="s">€ 35</div></td><td>${stepper('boek', 'boek')}</td><td></td><td><span class="state ${b === 0 ? 'out' : b <= 10 ? 'few' : 'ok'}">${b === 0 ? 'Uitverkocht' : b <= 10 ? 'Nog ' + b : 'Niet zichtbaar'}</span></td></tr>`;
+    const n = changes(); $('#save').disabled = n === 0; $('#status').textContent = n ? `${n} wijziging${n > 1 ? 'en' : ''}, nog niet opgeslagen` : 'Alles is opgeslagen';
+  };
+  const changes = () => { let n = 0; for (const s in STOCK) for (const v in STOCK[s]) if (STOCK[s][v] !== ORIG[s]?.[v]) n++; return n; };
+  const set = (s, v, val) => { STOCK[s][v] = Math.max(0, Math.min(9999, parseInt(val, 10) || 0)); };
+  const fmt = iso => new Date(iso).toLocaleString('nl-NL', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
+  const showSales = (sales) => {
+    $('#sales').innerHTML = sales.length ? sales.map(s => `<li><b>${fmt(s.at)}</b> · ${s.items.map(([sl, v, q]) => `${q}× ${(DATA.prints.find(p => p.slug === sl) || { title: 'Boek' }).title}${v === 'lijst' ? ' (ingelijst)' : ''}`).join(', ')} · € ${s.bedrag || '?'} · ${s.klant?.n || ''}${s.test ? ' · <i>test</i>' : ''}</li>`).join('') : '<li>Nog geen verkopen via de site.</li>';
+  };
+  const start = async () => {
+    const [d, j] = await Promise.all([fetch('data.json').then(r => r.json()), api({ action: 'get' })]);
+    DATA = d; STOCK = j.stock; ORIG = structuredClone(j.stock); ASOF = j.asOf;
+    $('#login').hidden = true; $('#app').hidden = false; $('#bar').hidden = false;
+    render(); showSales(j.sales || []);
+  };
+  $('#lf').addEventListener('submit', async e => {
+    e.preventDefault(); pw = $('#pw').value; $('#lerr').hidden = true;
+    try { await start(); try { sessionStorage.setItem('twdzz-pw', pw); } catch (x) {} }
+    catch (err) { $('#lerr').textContent = err.message; $('#lerr').hidden = false; }
+  });
+  document.addEventListener('click', e => { const b = e.target.closest('button[data-d]'); if (!b) return; set(b.dataset.s, b.dataset.v, STOCK[b.dataset.s][b.dataset.v] + (+b.dataset.d)); render(); });
+  document.addEventListener('change', e => { const i = e.target.closest('input[data-s]'); if (!i) return; set(i.dataset.s, i.dataset.v, i.value); render(); });
+  $('#save').addEventListener('click', async () => {
+    $('#save').disabled = true; $('#status').textContent = 'Bezig met opslaan';
+    try { const j = await api({ action: 'save', stock: STOCK, asOf: ASOF }); ASOF = j.asOf; STOCK = j.stock; ORIG = structuredClone(j.stock); render(); $('#status').textContent = 'Opgeslagen ' + fmt(j.updatedAt) + '. Direct zichtbaar op de site.'; }
+    catch (err) { $('#status').textContent = err.message; $('#save').disabled = false; }
+  });
+  window.addEventListener('beforeunload', e => { if (STOCK && changes()) { e.preventDefault(); e.returnValue = ''; } });
+  if (pw) start().catch(() => { pw = ''; });
+})();
+</script>
+</body>
+</html>

@@ -1,6 +1,6 @@
-// Maakt een Mollie-betaling aan. Prijzen komen altijd uit data.json op de server,
-// nooit uit de browser, zodat niemand zelf een prijs kan verzinnen.
-// Nodig in Netlify: omgevingsvariabele MOLLIE_API_KEY (test_... of live_...).
+// Maakt een Mollie-betaling aan. Prijzen en voorraad komen altijd van de server,
+// nooit uit de browser. Nodig in Netlify: MOLLIE_API_KEY.
+import { currentStock, loadData } from './lib/voorraad.mjs';
 
 const json = (status, body) => new Response(JSON.stringify(body), {
   status, headers: { 'Content-Type': 'application/json' }
@@ -9,46 +9,53 @@ const json = (status, body) => new Response(JSON.stringify(body), {
 export default async (req) => {
   if (req.method !== 'POST') return json(405, { error: 'Alleen POST' });
   const key = process.env.MOLLIE_API_KEY;
-  if (!key) return json(500, { error: 'Betalen is nog niet ingesteld (MOLLIE_API_KEY ontbreekt).' });
+  if (!key) return json(500, { error: 'Betalen is nog niet ingesteld.' });
 
   let body;
   try { body = await req.json(); } catch { return json(400, { error: 'Ongeldige bestelling.' }); }
 
   const site = new URL(req.url).origin;
-  const data = await (await fetch(`${site}/data.json`)).json();
+  const data = await loadData(site);
+  const { stock } = await currentStock(site, data);
 
-  const items = Array.isArray(body.items) ? body.items.slice(0, 50) : [];
+  const items = Array.isArray(body.items) ? body.items.slice(0, 30) : [];
   if (!items.length) return json(400, { error: 'Je winkelwagen is leeg.' });
 
   const lines = [];
+  const meta = [];
   let total = 0;
   for (const l of items) {
     const qty = Math.max(1, Math.min(10, parseInt(l.qty, 10) || 1));
+    let name, price, slug, variant;
     if (l.slug === 'boek') {
-      lines.push({ name: 'Boek Toen we daar zo zaten', qty, price: data.boek.price });
-      total += data.boek.price * qty;
-      continue;
+      slug = 'boek'; variant = 'boek'; name = 'Boek Toen we daar zo zaten'; price = data.boek.price;
+    } else {
+      const p = data.prints.find(x => x.slug === l.slug);
+      const v = p && p.variants.find(x => x.id === l.variant);
+      if (!v) return json(400, { error: 'Een van de prints bestaat niet meer. Vernieuw de pagina.' });
+      slug = p.slug; variant = v.id; price = v.price;
+      name = `${p.title}, ${v.id === 'lijst' ? 'ingelijst' : 'passe-partout'}`;
     }
-    const p = data.prints.find(x => x.slug === l.slug);
-    const v = p && p.variants.find(x => x.id === l.variant);
-    if (!v) return json(400, { error: 'Een van de prints bestaat niet meer. Vernieuw de pagina.' });
-    if (v.stock != null && v.stock < qty) return json(409, { error: `${p.title} (${v.label.toLowerCase()}) is helaas niet meer in deze hoeveelheid op voorraad.` });
-    lines.push({ name: `${p.title}, ${v.id === 'lijst' ? 'ingelijst' : 'passe-partout'}`, qty, price: v.price });
-    total += v.price * qty;
+    const left = stock[slug]?.[variant] ?? 0;
+    if (left < qty) {
+      return json(409, { error: left === 0 ? `${name} is helaas uitverkocht.` : `Van ${name} zijn er nog maar ${left}.` });
+    }
+    lines.push({ name, qty, price });
+    meta.push([slug, variant, qty]);
+    total += price * qty;
   }
 
   const ship = data.shipping.find(s => s.id === body.shipping) || data.shipping[0];
   total += ship.price;
 
   const c = body.customer || {};
-  const clean = s => String(s || '').slice(0, 200).trim();
-  const customer = {
-    naam: clean(c.name), email: clean(c.email), telefoon: clean(c.phone),
-    adres: ship.id === 'pickup' ? 'ophalen in de galerie' : [clean(c.street), clean(c.zip), clean(c.city), clean(c.country)].join(', ')
+  const clean = (s, n = 120) => String(s || '').slice(0, n).trim();
+  const klant = {
+    n: clean(c.name, 80), e: clean(c.email, 100), t: clean(c.phone, 30),
+    a: ship.id === 'pickup' ? 'ophalen' : [clean(c.street, 80), clean(c.zip, 12), clean(c.city, 50), clean(c.country, 40)].join(', ')
   };
-  if (!customer.naam || !/^\S+@\S+\.\S+$/.test(customer.email)) return json(400, { error: 'Vul je naam en e-mailadres in.' });
+  if (!klant.n || !/^\S+@\S+\.\S+$/.test(klant.e)) return json(400, { error: 'Vul je naam en e-mailadres in.' });
 
-  // Alleen terugsturen naar onze eigen site.
   let redirectUrl = `${site}/#bedankt`;
   try { const u = new URL(body.returnUrl); if (u.origin === site) redirectUrl = u.href; } catch {}
 
@@ -58,10 +65,12 @@ export default async (req) => {
     headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
     body: JSON.stringify({
       amount: { currency: 'EUR', value: (total / 100).toFixed(2) },
-      description: `TWDZZ ${customer.naam}: ${summary}`.slice(0, 255),
+      description: `TWDZZ ${klant.n}: ${summary}`.slice(0, 255),
       redirectUrl,
+      webhookUrl: `${site}/.netlify/functions/mollie-webhook`,
       locale: 'nl_NL',
-      metadata: { bestelling: lines, bezorging: ship.label, klant: customer }
+      // Mollie staat max 1 KB metadata toe, daarom compact.
+      metadata: { i: meta, s: ship.id, k: klant }
     })
   });
   const pay = await res.json();

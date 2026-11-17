@@ -22,7 +22,8 @@
     }
    ],
    "krant": "de-reiger",
-   "order": 0
+   "order": 0,
+   "artW": 1300
   },
   {
    "slug": "van-leeuwen",
@@ -46,7 +47,8 @@
     }
    ],
    "krant": "van-leeuwen",
-   "order": 1
+   "order": 1,
+   "artW": 1200
   },
   {
    "slug": "p-king",
@@ -70,7 +72,8 @@
     }
    ],
    "krant": "p-king",
-   "order": 2
+   "order": 2,
+   "artW": 1400
   },
   {
    "slug": "de-eland",
@@ -94,7 +97,8 @@
     }
    ],
    "krant": "de-eland",
-   "order": 3
+   "order": 3,
+   "artW": 1200
   },
   {
    "slug": "wildschut",
@@ -118,7 +122,8 @@
     }
    ],
    "krant": "wildschut",
-   "order": 4
+   "order": 4,
+   "artW": 1200
   },
   {
    "slug": "pllek",
@@ -142,7 +147,8 @@
     }
    ],
    "krant": "pllek",
-   "order": 5
+   "order": 5,
+   "artW": 1300
   },
   {
    "slug": "nemo",
@@ -166,7 +172,8 @@
     }
    ],
    "krant": "nemo",
-   "order": 6
+   "order": 6,
+   "artW": 1400
   },
   {
    "slug": "gent-aan-de-schinkel",
@@ -190,7 +197,8 @@
     }
    ],
    "krant": "gent-aan-de-schinkel",
-   "order": 7
+   "order": 7,
+   "artW": 2000
   },
   {
    "slug": "dok-48",
@@ -214,7 +222,8 @@
     }
    ],
    "krant": "dok48",
-   "order": 8
+   "order": 8,
+   "artW": 2000
   },
   {
    "slug": "brandon",
@@ -238,7 +247,8 @@
     }
    ],
    "krant": "brandon",
-   "order": 9
+   "order": 9,
+   "artW": 2000
   },
   {
    "slug": "kuijper",
@@ -262,7 +272,8 @@
     }
    ],
    "krant": "kuijper",
-   "order": 10
+   "order": 10,
+   "artW": 1400
   },
   {
    "slug": "stadsschouwburg",
@@ -286,7 +297,8 @@
     }
    ],
    "krant": "stadsschouwburg",
-   "order": 11
+   "order": 11,
+   "artW": 1400
   },
   {
    "slug": "steiger-4",
@@ -310,7 +322,8 @@
     }
    ],
    "krant": "steiger-4",
-   "order": 12
+   "order": 12,
+   "artW": 2000
   },
   {
    "slug": "pacific-parc",
@@ -334,7 +347,8 @@
     }
    ],
    "krant": "pacific-parc",
-   "order": 13
+   "order": 13,
+   "artW": 2000
   },
   {
    "slug": "de-gruter",
@@ -358,7 +372,8 @@
     }
    ],
    "krant": "gruter",
-   "order": 14
+   "order": 14,
+   "artW": 2000
   },
   {
    "slug": "a-beautiful-mess",
@@ -382,7 +397,8 @@
     }
    ],
    "krant": "a-beautiful-mess",
-   "order": 15
+   "order": 15,
+   "artW": 2000
   },
   {
    "slug": "t-smalle",
@@ -406,7 +422,8 @@
     }
    ],
    "krant": "t-smalle",
-   "order": 16
+   "order": 16,
+   "artW": 2000
   },
   {
    "slug": "de-hoek",
@@ -430,7 +447,8 @@
     }
    ],
    "krant": "de-hoek",
-   "order": 17
+   "order": 17,
+   "artW": 2000
   },
   {
    "slug": "t-sluisje",
@@ -454,7 +472,8 @@
     }
    ],
    "krant": "t-sluisje",
-   "order": 18
+   "order": 18,
+   "artW": 2000
   },
   {
    "slug": "kingfisher",
@@ -478,7 +497,8 @@
     }
    ],
    "krant": "kingfisher",
-   "order": 19
+   "order": 19,
+   "artW": 2000
   },
   {
    "slug": "schiller",
@@ -502,7 +522,8 @@
     }
    ],
    "krant": "schiller",
-   "order": 20
+   "order": 20,
+   "artW": 2000
   },
   {
    "slug": "morlang",
@@ -526,7 +547,8 @@
     }
    ],
    "krant": "morlang",
-   "order": 21
+   "order": 21,
+   "artW": 1400
   },
   {
    "slug": "abina",
@@ -550,7 +572,8 @@
     }
    ],
    "krant": "abina",
-   "order": 22
+   "order": 22,
+   "artW": 2000
   },
   {
    "slug": "zouk",
@@ -574,7 +597,8 @@
     }
    ],
    "krant": "zouk",
-   "order": 23
+   "order": 23,
+   "artW": 2000
   },
   {
    "slug": "thuis-aan-de-amstel",
@@ -598,7 +622,8 @@
     }
    ],
    "krant": "thuis-aan-de-amstel",
-   "order": 24
+   "order": 24,
+   "artW": 1300
   },
   {
    "slug": "festina-lente",
@@ -622,7 +647,8 @@
     }
    ],
    "krant": "festina-lente",
-   "order": 25
+   "order": 25,
+   "artW": 2000
   },
   {
    "slug": "uitvlugt",
@@ -646,7 +672,8 @@
     }
    ],
    "krant": "de-uitvlugt",
-   "order": 26
+   "order": 26,
+   "artW": 2000
   },
   {
    "slug": "tabac",
@@ -670,7 +697,8 @@
     }
    ],
    "krant": "tabac",
-   "order": 27
+   "order": 27,
+   "artW": 2000
   },
   {
    "slug": "noorderlicht",
@@ -694,7 +722,8 @@
     }
    ],
    "krant": "noorderlicht",
-   "order": 28
+   "order": 28,
+   "artW": 2000
   },
   {
    "slug": "bar-americain",
@@ -718,7 +747,8 @@
     }
    ],
    "krant": "cafe-americain",
-   "order": 29
+   "order": 29,
+   "artW": 2000
   },
   {
    "slug": "hannekes-boom",
@@ -742,7 +772,8 @@
     }
    ],
    "krant": "hannekes-boom",
-   "order": 30
+   "order": 30,
+   "artW": 2000
   },
   {
    "slug": "brandstof",
@@ -766,7 +797,8 @@
     }
    ],
    "krant": "brandstof",
-   "order": 31
+   "order": 31,
+   "artW": 1400
   },
   {
    "slug": "the-old-sailor",
@@ -790,7 +822,8 @@
     }
    ],
    "krant": "old-sailor",
-   "order": 32
+   "order": 32,
+   "artW": 2000
   },
   {
    "slug": "de-prins",
@@ -814,7 +847,8 @@
     }
    ],
    "krant": "de-prins",
-   "order": 33
+   "order": 33,
+   "artW": 1600
   },
   {
    "slug": "bouwman",
@@ -838,7 +872,8 @@
     }
    ],
    "krant": null,
-   "order": 34
+   "order": 34,
+   "artW": 1400
   },
   {
    "slug": "broodje-bert",
@@ -862,7 +897,8 @@
     }
    ],
    "krant": "broodje-bert",
-   "order": 35
+   "order": 35,
+   "artW": 1400
   },
   {
    "slug": "de-doffer",
@@ -886,7 +922,8 @@
     }
    ],
    "krant": null,
-   "order": 36
+   "order": 36,
+   "artW": 1400
   },
   {
    "slug": "de-magere-brug",
@@ -910,7 +947,8 @@
     }
    ],
    "krant": "de-magere-brug",
-   "order": 37
+   "order": 37,
+   "artW": 1400
   },
   {
    "slug": "de-oude-wester",
@@ -934,7 +972,8 @@
     }
    ],
    "krant": "de-oude-wester",
-   "order": 38
+   "order": 38,
+   "artW": 2000
   },
   {
    "slug": "de-oude-wester-xl",
@@ -958,7 +997,8 @@
     }
    ],
    "krant": "de-oude-wester",
-   "order": 39
+   "order": 39,
+   "artW": 1300
   },
   {
    "slug": "de-smoeshaan",
@@ -982,7 +1022,8 @@
     }
    ],
    "krant": null,
-   "order": 40
+   "order": 40,
+   "artW": 1400
   },
   {
    "slug": "mads",
@@ -1006,7 +1047,8 @@
     }
    ],
    "krant": "mads",
-   "order": 41
+   "order": 41,
+   "artW": 2000
   },
   {
    "slug": "fonteyn",
@@ -1030,7 +1072,8 @@
     }
    ],
    "krant": null,
-   "order": 42
+   "order": 42,
+   "artW": 1400
   },
   {
    "slug": "winkel-43",
@@ -1054,7 +1097,8 @@
     }
    ],
    "krant": null,
-   "order": 43
+   "order": 43,
+   "artW": 1400
   },
   {
    "slug": "diep",
@@ -1078,7 +1122,8 @@
     }
    ],
    "krant": null,
-   "order": 44
+   "order": 44,
+   "artW": 1400
   },
   {
    "slug": "finch",
@@ -1102,7 +1147,8 @@
     }
    ],
    "krant": null,
-   "order": 45
+   "order": 45,
+   "artW": 1300
   },
   {
    "slug": "de-brabantse-aap",
@@ -1126,7 +1172,8 @@
     }
    ],
    "krant": "de-brabantse-aap",
-   "order": 46
+   "order": 46,
+   "artW": 1300
   },
   {
    "slug": "de-balie",
@@ -1150,7 +1197,8 @@
     }
    ],
    "krant": "de-balie",
-   "order": 47
+   "order": 47,
+   "artW": 2000
   },
   {
    "slug": "de-oerknal",
@@ -1174,7 +1222,8 @@
     }
    ],
    "krant": "oerknal",
-   "order": 48
+   "order": 48,
+   "artW": 1400
   },
   {
    "slug": "krom",
@@ -1198,7 +1247,8 @@
     }
    ],
    "krant": "krom",
-   "order": 49
+   "order": 49,
+   "artW": 2000
   },
   {
    "slug": "pieper",
@@ -1222,7 +1272,8 @@
     }
    ],
    "krant": "pieper",
-   "order": 50
+   "order": 50,
+   "artW": 2000
   },
   {
    "slug": "pompet",
@@ -1246,7 +1297,8 @@
     }
    ],
    "krant": "pompet",
-   "order": 51
+   "order": 51,
+   "artW": 1200
   },
   {
    "slug": "radion",
@@ -1270,7 +1322,8 @@
     }
    ],
    "krant": "radion",
-   "order": 52
+   "order": 52,
+   "artW": 2000
   },
   {
    "slug": "schuim",
@@ -1294,7 +1347,8 @@
     }
    ],
    "krant": "schuim",
-   "order": 53
+   "order": 53,
+   "artW": 2000
   },
   {
    "slug": "zeeburg",
@@ -1318,7 +1372,8 @@
     }
    ],
    "krant": "camping-zeeburg",
-   "order": 54
+   "order": 54,
+   "artW": 2000
   },
   {
    "slug": "de-blaffende-vis",
@@ -1342,7 +1397,8 @@
     }
    ],
    "krant": "de-blaffende-vis",
-   "order": 55
+   "order": 55,
+   "artW": 2000
   },
   {
    "slug": "de-engelbewaarder",
@@ -1366,7 +1422,8 @@
     }
    ],
    "krant": "de-engelbewaarder",
-   "order": 56
+   "order": 56,
+   "artW": 2000
   },
   {
    "slug": "amstel-hotel",
@@ -1390,7 +1447,8 @@
     }
    ],
    "krant": "amstel-hotel",
-   "order": 57
+   "order": 57,
+   "artW": 2000
   },
   {
    "slug": "de-nieuwe-lelie",
@@ -1414,7 +1472,8 @@
     }
    ],
    "krant": "de-nieuwe-lelie",
-   "order": 58
+   "order": 58,
+   "artW": 2000
   },
   {
    "slug": "galerie-staaf",
@@ -1438,7 +1497,8 @@
     }
    ],
    "krant": "galerie-staaf",
-   "order": 59
+   "order": 59,
+   "artW": 2000
   }
  ],
  "krant": [
@@ -1654,7 +1714,8 @@
  "boek": {
   "slug": "boek",
   "title": "Toen we daar zo zaten (boek)",
-  "price": 3500
+  "price": 3500,
+  "stock": 999
  },
  "shipping": [
   {

@@ -1,17 +1,19 @@
-# Toen we daar zo zaten: nieuwe site
+# Toen we daar zo zaten
 
-Statische site + één Netlify Function voor betalen via Mollie.
+Statische site op Netlify, met drie functies:
+- `checkout`: maakt een Mollie-betaling aan (prijs en voorraad komen van de server).
+- `mollie-webhook`: boekt een betaalde bestelling af van de voorraad.
+- `stock` en `beheer`: voorraad lezen en aanpassen. Opslag in Netlify Blobs.
 
-## Live zetten
-1. Maak een Mollie-account (mollie.com) en rond de verificatie af.
-2. In Netlify: nieuwe site, sleep deze map erin (of koppel via GitHub).
-   Let op: drag-and-drop draait geen functions. Gebruik GitHub of `netlify deploy`.
-3. Site settings > Environment variables: MOLLIE_API_KEY = je test_-sleutel. Eerst testen, dan live_-sleutel.
-4. Domein: toenwedaarzozaten.staaf.nl (CNAME in de DNS van staaf.nl naar de Netlify-site).
+## Instellingen in Netlify (Environment variables)
+- `MOLLIE_API_KEY`: test_... om te testen, live_... voor echte verkoop.
+- `ADMIN_PASSWORD`: wachtwoord voor /beheer.html.
 
-## Aanpassen
-Alles staat in data.json: prijzen in centen, voorraad per uitvoering (stock), verzendkosten.
-Na een verkoop: verlaag stock bij de juiste print. 0 = uitverkocht.
+## Voorraad
+Ga naar /beheer.html. Op de site is het aantal pas zichtbaar bij 10 of minder;
+bij 0 is de print uitverkocht en niet te bestellen. Betaalde bestellingen worden
+automatisch afgeboekt. Prijzen, titels en verzendkosten staan in data.json.
 
-## Bestellingen
-Staan in het Mollie-dashboard, met naam, adres en de bestelde prints bij elke betaling.
+## Vormgeving aangepast?
+Draai `python3 tools/prerender.py` (met `python3 -m http.server 8765` in deze map),
+zodat de vooraf ingevulde homepage in index.html weer klopt.

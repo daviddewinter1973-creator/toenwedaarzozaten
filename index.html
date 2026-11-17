@@ -3,47 +3,576 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Toen we daar zo zaten</title>
-<meta name="description" content="Staaf en Rogier Cornelisse portretteerden een jaar lang voor Het Parool de mooiste terrassen van Amsterdam. Gesigneerde fine art prints en het boek.">
+<title>Toen we daar zo zaten · Staaf &amp; Rogier Cornelisse</title>
+<meta name="description" content="Een jaar lang tekende Staaf elke week een Amsterdams terras en schreef Rogier Cornelisse erover in Het Parool. Gesigneerde fine art prints in beperkte oplage en het boek.">
+<meta property="og:title" content="Toen we daar zo zaten">
+<meta property="og:description" content="Amsterdam vanaf het terras. Gesigneerde prints van Staaf in beperkte oplage.">
+<meta property="og:image" content="img/art/de-oude-wester-xl-1000.webp">
+<meta name="theme-color" content="#ffffff">
+<script>
+/* Andere pagina dan de homepage? Verberg de vooraf ingevulde homepage tot het script de juiste pagina toont. */
+(function(){var h=location.hash.slice(1);if(h&&h!=='shop'&&h!=='prints')document.documentElement.className+=' deep';})();
+/* Begin het eerste grote beeld al te laden voordat de rest van de site er is. */
+(function(){var h=location.hash.slice(1),s;
+if(!h||h==='shop'||h==='prints')s='de-oude-wester';else if(h.indexOf('print-')===0)s=h.slice(6).replace(/[^a-z0-9-]/g,'');
+if(!s)return;var l=document.createElement('link');l.rel='preload';l.as='image';l.href='img/art/'+s+'-1000.webp';
+l.setAttribute('imagesrcset','img/thumb/'+s+'.webp 700w, img/art/'+s+'-1000.webp 1000w');l.setAttribute('imagesizes','(max-width:760px) 100vw, 58vw');
+l.setAttribute('fetchpriority','high');document.head.appendChild(l);})();
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&display=swap" rel="stylesheet">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&display=swap"></noscript>
 <link rel="stylesheet" href="style.css">
+<link rel="preload" href="data.json" as="fetch" crossorigin>
+
 </head>
 <body>
+<a class="skip" href="#view">Naar de inhoud</a>
 <header class="masthead">
-  <div class="masthead-top">
-    <a class="back-staaf" href="https://www.staaf.nl">← staaf.nl</a>
-    <a class="cart-link" href="#winkelwagen" aria-label="Winkelwagen">Winkelwagen <span class="cart-count" hidden>0</span></a>
+  <div class="topbar">
+    <a href="https://www.staaf.nl" class="topbar-link">Staaf</a>
+    <a href="#winkelwagen" class="topbar-link cart-link">Winkelwagen<span class="cart-count" hidden>0</span></a>
   </div>
-  <a href="#shop" class="logo"><h1>Toen we daar zo zaten</h1></a>
-  <p class="dateline">Amsterdam vanaf het terras · tekeningen Staaf · verhalen Rogier Cornelisse · bekend uit PS van Het Parool</p>
-  <nav class="nav">
+  <a href="#shop" class="logo" aria-label="Toen we daar zo zaten, naar de prints">Toen we daar zo zaten</a>
+  <p class="dateline"><span>Amsterdam vanaf het terras</span><span>Tekeningen Staaf</span><span>Verhalen Rogier Cornelisse</span><span>Bekend uit PS van Het Parool</span></p>
+  <nav class="nav" aria-label="Hoofdmenu">
     <a href="#shop" data-nav="shop">Prints</a>
     <a href="#boek" data-nav="boek">Boek</a>
-    <a href="#krant" data-nav="krant">Krantenpagina's</a>
+    <a href="#krant" data-nav="krant">De krant</a>
     <a href="#plattegrond" data-nav="plattegrond">Plattegrond</a>
     <a href="#over" data-nav="over">Staaf &amp; Rogier</a>
   </nav>
 </header>
 
-<main id="view" tabindex="-1"></main>
+<main id="view" tabindex="-1"><section class="hero">
+          <div>
+            <p class="kicker">Gesigneerde fine art prints</p>
+            <h1 class="display">Amsterdam vanaf het terras</h1>
+            <p class="lede">Een jaar lang tekende Staaf elke week zijn uitzicht vanaf een Amsterdams terras, en schreef Rogier Cornelisse op wat hij zag, rook en hoorde. Elke tekening is er als gesigneerde print in een kleine oplage, los met passe-partout of ingelijst achter museumglas.</p>
+            <div class="links"><a class="textlink" href="#prints">Bekijk de 60 prints</a><a class="textlink" href="#boek">Het boek</a></div>
+          </div>
+          <figure class="hero-art">
+            <a href="#print-de-oude-wester"><img class="" src="img/art/de-oude-wester-1000.webp" srcset="img/thumb/de-oude-wester.webp 700w, img/art/de-oude-wester-1000.webp 1000w, img/art/de-oude-wester.webp 2000w" sizes="(max-width:760px) 100vw, 56vw" width="1000" height="1000" alt="De Oude Wester, tekening van Staaf" fetchpriority="high"></a>
+            <figcaption>De Oude Wester. Ook als <a href="#print-de-oude-wester-xl">XL-editie van 90 × 90 cm</a>, oplage 10.</figcaption>
+          </figure>
+        </section>
+        <div class="section-head" id="prints">
+          <h2 class="h2">De prints</h2>
+          <div class="filters" role="group" aria-label="Filter op formaat">
+            <button data-filter="alle" class="on" aria-pressed="true">Alle</button><button data-filter="klein" class="" aria-pressed="false">23 × 23 cm</button><button data-filter="groot" class="" aria-pressed="false">32 × 32 cm</button><button data-filter="xl" class="" aria-pressed="false">XL</button>
+          </div>
+        </div>
+        <div class="grid">
+    <a class="card " href="#print-de-reiger">
+      <div class="ph">
+        <img src="img/thumb/de-reiger-420.webp" srcset="img/thumb/de-reiger-420.webp 420w, img/thumb/de-reiger.webp 700w" sizes="(max-width:760px) 46vw, (max-width:960px) 45vw, 380px" width="420" height="420" alt="De Reiger, tekening van Staaf">
+        
+      </div>
+      <h3>De Reiger</h3>
+      <div class="meta">32 × 32 cm · vanaf €&nbsp;99,–</div>
+    </a>
+    <a class="card " href="#print-van-leeuwen">
+      <div class="ph">
+        <img src="img/thumb/van-leeuwen-420.webp" srcset="img/thumb/van-leeuwen-420.webp 420w, img/thumb/van-leeuwen.webp 700w" sizes="(max-width:760px) 46vw, (max-width:960px) 45vw, 380px" width="420" height="420" alt="Van Leeuwen, tekening van Staaf">
+        
+      </div>
+      <h3>Van Leeuwen</h3>
+      <div class="meta">23 × 23 cm · vanaf €&nbsp;69,–</div>
+    </a>
+    <a class="card " href="#print-p-king">
+      <div class="ph">
+        <img src="img/thumb/p-king-420.webp" srcset="img/thumb/p-king-420.webp 420w, img/thumb/p-king.webp 700w" sizes="(max-width:760px) 46vw, (max-width:960px) 45vw, 380px" width="420" height="420" alt="P.King, tekening van Staaf">
+        
+      </div>
+      <h3>P.King</h3>
+      <div class="meta">32 × 32 cm · vanaf €&nbsp;99,–</div>
+    </a>
+    <a class="card " href="#print-de-eland">
+      <div class="ph">
+        <img src="img/thumb/de-eland-420.webp" srcset="img/thumb/de-eland-420.webp 420w, img/thumb/de-eland.webp 700w" sizes="(max-width:760px) 46vw, (max-width:960px) 45vw, 380px" width="420" height="420" alt="De Eland, tekening van Staaf" loading="lazy">
+        
+      </div>
+      <h3>De Eland</h3>
+      <div class="meta">32 × 32 cm · vanaf €&nbsp;99,–</div>
+    </a>
+    <a class="card " href="#print-wildschut">
+      <div class="ph">
+        <img src="img/thumb/wildschut-420.webp" srcset="img/thumb/wildschut-420.webp 420w, img/thumb/wildschut.webp 700w" sizes="(max-width:760px) 46vw, (max-width:960px) 45vw, 380px" width="420" height="420" alt="Wildschut, tekening van Staaf" loading="lazy">
+        
+      </div>
+      <h3>Wildschut</h3>
+      <div class="meta">32 × 32 cm · vanaf €&nbsp;99,–</div>
+    </a>
+    <a class="card " href="#print-pllek">
+      <div class="ph">
+        <img src="img/thumb/pllek-420.webp" srcset="img/thumb/pllek-420.webp 420w, img/thumb/pllek.webp 700w" sizes="(max-width:760px) 46vw, (max-width:960px) 45vw, 380px" width="420" height="420" alt="Pllek, tekening van Staaf" loading="lazy">
+        
+      </div>
+      <h3>Pllek</h3>
+      <div class="meta">32 × 32 cm · vanaf €&nbsp;99,–</div>
+    </a>
+    <a class="card " href="#print-nemo">
+      <div class="ph">
+        <img src="img/thumb/nemo-420.webp" srcset="img/thumb/nemo-420.webp 420w, img/thumb/nemo.webp 700w" sizes="(max-width:760px) 46vw, (max-width:960px) 45vw, 380px" width="420" height="420" alt="NEMO, tekening van Staaf" loading="lazy">
+        
+      </div>
+      <h3>NEMO</h3>
+      <div class="meta">32 × 32 cm · vanaf €&nbsp;99,–</div>
+    </a>
+    <a class="card " href="#print-gent-aan-de-schinkel">
+      <div class="ph">
+        <img src="img/thumb/gent-aan-de-schinkel-420.webp" srcset="img/thumb/gent-aan-de-schinkel-420.webp 420w, img/thumb/gent-aan-de-schinkel.webp 700w" sizes="(max-width:760px) 46vw, (max-width:960px) 45vw, 380px" width="420" height="420" alt="Gent aan de Schinkel, tekening van Staaf" loading="lazy">
+        
+      </div>
+      <h3>Gent aan de Schinkel</h3>
+      <div class="meta">32 × 32 cm · vanaf €&nbsp;99,–</div>
+    </a>
+    <a class="card " href="#print-dok-48">
+      <div class="ph">
+        <img src="img/thumb/dok-48-420.webp" srcset="img/thumb/dok-48-420.webp 420w, img/thumb/dok-48.webp 700w" sizes="(max-width:760px) 46vw, (max-width:960px) 45vw, 380px" width="420" height="420" alt="Dok 48, tekening van Staaf" loading="lazy">
+        
+      </div>
+      <h3>Dok 48</h3>
+      <div class="meta">32 × 32 cm · vanaf €&nbsp;99,–</div>
+    </a>
+    <a class="card " href="#print-brandon">
+      <div class="ph">
+        <img src="img/thumb/brandon-420.webp" srcset="img/thumb/brandon-420.webp 420w, img/thumb/brandon.webp 700w" sizes="(max-width:760px) 46vw, (max-width:960px) 45vw, 380px" width="420" height="420" alt="Brandon, tekening van Staaf" loading="lazy">
+        
+      </div>
+      <h3>Brandon</h3>
+      <div class="meta">32 × 32 cm · vanaf €&nbsp;99,–</div>
+    </a>
+    <a class="card " href="#print-kuijper">
+      <div class="ph">
+        <img src="img/thumb/kuijper-420.webp" srcset="img/thumb/kuijper-420.webp 420w, img/thumb/kuijper.webp 700w" sizes="(max-width:760px) 46vw, (max-width:960px) 45vw, 380px" width="420" height="420" alt="Kuijper, tekening van Staaf" loading="lazy">
+        
+      </div>
+      <h3>Kuijper</h3>
+      <div class="meta">32 × 32 cm · vanaf €&nbsp;99,–</div>
+    </a>
+    <a class="card " href="#print-stadsschouwburg">
+      <div class="ph">
+        <img src="img/thumb/stadsschouwburg-420.webp" srcset="img/thumb/stadsschouwburg-420.webp 420w, img/thumb/stadsschouwburg.webp 700w" sizes="(max-width:760px) 46vw, (max-width:960px) 45vw, 380px" width="420" height="420" alt="Stadsschouwburg, tekening van Staaf" loading="lazy">
+        
+      </div>
+      <h3>Stadsschouwburg</h3>
+      <div class="meta">32 × 32 cm · vanaf €&nbsp;99,–</div>
+    </a>
+    <a class="card " href="#print-steiger-4">
+      <div class="ph">
+        <img src="img/thumb/steiger-4-420.webp" srcset="img/thumb/steiger-4-420.webp 420w, img/thumb/steiger-4.webp 700w" sizes="(max-width:760px) 46vw, (max-width:960px) 45vw, 380px" width="420" height="420" alt="Steiger 4, tekening van Staaf" loading="lazy">
+        
+      </div>
+      <h3>Steiger 4</h3>
+      <div class="meta">32 × 32 cm · vanaf €&nbsp;99,–</div>
+    </a>
+    <a class="card " href="#print-pacific-parc">
+      <div class="ph">
+        <img src="img/thumb/pacific-parc-420.webp" srcset="img/thumb/pacific-parc-420.webp 420w, img/thumb/pacific-parc.webp 700w" sizes="(max-width:760px) 46vw, (max-width:960px) 45vw, 380px" width="420" height="420" alt="Pacific Parc, tekening van Staaf" loading="lazy">
+        
+      </div>
+      <h3>Pacific Parc</h3>
+      <div class="meta">32 × 32 cm · vanaf €&nbsp;99,–</div>
+    </a>
+    <a class="card " href="#print-de-gruter">
+      <div class="ph">
+        <img src="img/thumb/de-gruter-420.webp" srcset="img/thumb/de-gruter-420.webp 420w, img/thumb/de-gruter.webp 700w" sizes="(max-width:760px) 46vw, (max-width:960px) 45vw, 380px" width="420" height="420" alt="De Gruter, tekening van Staaf" loading="lazy">
+        
+      </div>
+      <h3>De Gruter</h3>
+      <div class="meta">23 × 23 cm · vanaf €&nbsp;69,–</div>
+    </a>
+    <a class="card " href="#print-a-beautiful-mess">
+      <div class="ph">
+        <img src="img/thumb/a-beautiful-mess-420.webp" srcset="img/thumb/a-beautiful-mess-420.webp 420w, img/thumb/a-beautiful-mess.webp 700w" sizes="(max-width:760px) 46vw, (max-width:960px) 45vw, 380px" width="420" height="420" alt="a Beautiful Mess, tekening van Staaf" loading="lazy">
+        
+      </div>
+      <h3>a Beautiful Mess</h3>
+      <div class="meta">32 × 32 cm · vanaf €&nbsp;99,–</div>
+    </a>
+    <a class="card " href="#print-t-smalle">
+      <div class="ph">
+        <img src="img/thumb/t-smalle-420.webp" srcset="img/thumb/t-smalle-420.webp 420w, img/thumb/t-smalle.webp 700w" sizes="(max-width:760px) 46vw, (max-width:960px) 45vw, 380px" width="420" height="420" alt="'t Smalle, tekening van Staaf" loading="lazy">
+        
+      </div>
+      <h3>'t Smalle</h3>
+      <div class="meta">23 × 23 cm · vanaf €&nbsp;69,–</div>
+    </a>
+    <a class="card " href="#print-de-hoek">
+      <div class="ph">
+        <img src="img/thumb/de-hoek-420.webp" srcset="img/thumb/de-hoek-420.webp 420w, img/thumb/de-hoek.webp 700w" sizes="(max-width:760px) 46vw, (max-width:960px) 45vw, 380px" width="420" height="420" alt="De Hoek, tekening van Staaf" loading="lazy">
+        
+      </div>
+      <h3>De Hoek</h3>
+      <div class="meta">23 × 23 cm · vanaf €&nbsp;69,–</div>
+    </a>
+    <a class="card " href="#print-t-sluisje">
+      <div class="ph">
+        <img src="img/thumb/t-sluisje-420.webp" srcset="img/thumb/t-sluisje-420.webp 420w, img/thumb/t-sluisje.webp 700w" sizes="(max-width:760px) 46vw, (max-width:960px) 45vw, 380px" width="420" height="420" alt="'t Sluisje, tekening van Staaf" loading="lazy">
+        
+      </div>
+      <h3>'t Sluisje</h3>
+      <div class="meta">32 × 32 cm · vanaf €&nbsp;99,–</div>
+    </a>
+    <a class="card " href="#print-kingfisher">
+      <div class="ph">
+        <img src="img/thumb/kingfisher-420.webp" srcset="img/thumb/kingfisher-420.webp 420w, img/thumb/kingfisher.webp 700w" sizes="(max-width:760px) 46vw, (max-width:960px) 45vw, 380px" width="420" height="420" alt="Kingfisher, tekening van Staaf" loading="lazy">
+        
+      </div>
+      <h3>Kingfisher</h3>
+      <div class="meta">23 × 23 cm · vanaf €&nbsp;69,–</div>
+    </a>
+    <a class="card " href="#print-schiller">
+      <div class="ph">
+        <img src="img/thumb/schiller-420.webp" srcset="img/thumb/schiller-420.webp 420w, img/thumb/schiller.webp 700w" sizes="(max-width:760px) 46vw, (max-width:960px) 45vw, 380px" width="420" height="420" alt="Schiller, tekening van Staaf" loading="lazy">
+        
+      </div>
+      <h3>Schiller</h3>
+      <div class="meta">32 × 32 cm · vanaf €&nbsp;99,–</div>
+    </a>
+    <a class="card " href="#print-morlang">
+      <div class="ph">
+        <img src="img/thumb/morlang-420.webp" srcset="img/thumb/morlang-420.webp 420w, img/thumb/morlang.webp 700w" sizes="(max-width:760px) 46vw, (max-width:960px) 45vw, 380px" width="420" height="420" alt="Morlang, tekening van Staaf" loading="lazy">
+        
+      </div>
+      <h3>Morlang</h3>
+      <div class="meta">32 × 32 cm · vanaf €&nbsp;99,–</div>
+    </a>
+    <a class="card " href="#print-abina">
+      <div class="ph">
+        <img src="img/thumb/abina-420.webp" srcset="img/thumb/abina-420.webp 420w, img/thumb/abina.webp 700w" sizes="(max-width:760px) 46vw, (max-width:960px) 45vw, 380px" width="420" height="420" alt="Abina, tekening van Staaf" loading="lazy">
+        
+      </div>
+      <h3>Abina</h3>
+      <div class="meta">32 × 32 cm · vanaf €&nbsp;99,–</div>
+    </a>
+    <a class="card " href="#print-zouk">
+      <div class="ph">
+        <img src="img/thumb/zouk-420.webp" srcset="img/thumb/zouk-420.webp 420w, img/thumb/zouk.webp 700w" sizes="(max-width:760px) 46vw, (max-width:960px) 45vw, 380px" width="420" height="420" alt="Zouk, tekening van Staaf" loading="lazy">
+        
+      </div>
+      <h3>Zouk</h3>
+      <div class="meta">23 × 23 cm · vanaf €&nbsp;69,–</div>
+    </a>
+    <a class="card " href="#print-thuis-aan-de-amstel">
+      <div class="ph">
+        <img src="img/thumb/thuis-aan-de-amstel-420.webp" srcset="img/thumb/thuis-aan-de-amstel-420.webp 420w, img/thumb/thuis-aan-de-amstel.webp 700w" sizes="(max-width:760px) 46vw, (max-width:960px) 45vw, 380px" width="420" height="420" alt="Thuis aan de Amstel, tekening van Staaf" loading="lazy">
+        
+      </div>
+      <h3>Thuis aan de Amstel</h3>
+      <div class="meta">32 × 32 cm · vanaf €&nbsp;99,–</div>
+    </a>
+    <a class="card " href="#print-festina-lente">
+      <div class="ph">
+        <img src="img/thumb/festina-lente-420.webp" srcset="img/thumb/festina-lente-420.webp 420w, img/thumb/festina-lente.webp 700w" sizes="(max-width:760px) 46vw, (max-width:960px) 45vw, 380px" width="420" height="420" alt="Festina Lente, tekening van Staaf" loading="lazy">
+        
+      </div>
+      <h3>Festina Lente</h3>
+      <div class="meta">32 × 32 cm · vanaf €&nbsp;99,–</div>
+    </a>
+    <a class="card " href="#print-uitvlugt">
+      <div class="ph">
+        <img src="img/thumb/uitvlugt-420.webp" srcset="img/thumb/uitvlugt-420.webp 420w, img/thumb/uitvlugt.webp 700w" sizes="(max-width:760px) 46vw, (max-width:960px) 45vw, 380px" width="420" height="420" alt="Uitvlugt, tekening van Staaf" loading="lazy">
+        
+      </div>
+      <h3>Uitvlugt</h3>
+      <div class="meta">32 × 32 cm · vanaf €&nbsp;99,–</div>
+    </a>
+    <a class="card " href="#print-tabac">
+      <div class="ph">
+        <img src="img/thumb/tabac-420.webp" srcset="img/thumb/tabac-420.webp 420w, img/thumb/tabac.webp 700w" sizes="(max-width:760px) 46vw, (max-width:960px) 45vw, 380px" width="420" height="420" alt="Tabac, tekening van Staaf" loading="lazy">
+        
+      </div>
+      <h3>Tabac</h3>
+      <div class="meta">23 × 23 cm · vanaf €&nbsp;69,–</div>
+    </a>
+    <a class="card " href="#print-noorderlicht">
+      <div class="ph">
+        <img src="img/thumb/noorderlicht-420.webp" srcset="img/thumb/noorderlicht-420.webp 420w, img/thumb/noorderlicht.webp 700w" sizes="(max-width:760px) 46vw, (max-width:960px) 45vw, 380px" width="420" height="420" alt="Noorderlicht, tekening van Staaf" loading="lazy">
+        
+      </div>
+      <h3>Noorderlicht</h3>
+      <div class="meta">32 × 32 cm · vanaf €&nbsp;99,–</div>
+    </a>
+    <a class="card " href="#print-bar-americain">
+      <div class="ph">
+        <img src="img/thumb/bar-americain-420.webp" srcset="img/thumb/bar-americain-420.webp 420w, img/thumb/bar-americain.webp 700w" sizes="(max-width:760px) 46vw, (max-width:960px) 45vw, 380px" width="420" height="420" alt="Bar Americain, tekening van Staaf" loading="lazy">
+        
+      </div>
+      <h3>Bar Americain</h3>
+      <div class="meta">32 × 32 cm · vanaf €&nbsp;99,–</div>
+    </a>
+    <a class="card " href="#print-hannekes-boom">
+      <div class="ph">
+        <img src="img/thumb/hannekes-boom-420.webp" srcset="img/thumb/hannekes-boom-420.webp 420w, img/thumb/hannekes-boom.webp 700w" sizes="(max-width:760px) 46vw, (max-width:960px) 45vw, 380px" width="420" height="420" alt="Hanneke's Boom, tekening van Staaf" loading="lazy">
+        
+      </div>
+      <h3>Hanneke's Boom</h3>
+      <div class="meta">32 × 32 cm · vanaf €&nbsp;99,–</div>
+    </a>
+    <a class="card " href="#print-brandstof">
+      <div class="ph">
+        <img src="img/thumb/brandstof-420.webp" srcset="img/thumb/brandstof-420.webp 420w, img/thumb/brandstof.webp 700w" sizes="(max-width:760px) 46vw, (max-width:960px) 45vw, 380px" width="420" height="420" alt="Brandstof, tekening van Staaf" loading="lazy">
+        
+      </div>
+      <h3>Brandstof</h3>
+      <div class="meta">32 × 32 cm · vanaf €&nbsp;99,–</div>
+    </a>
+    <a class="card " href="#print-the-old-sailor">
+      <div class="ph">
+        <img src="img/thumb/the-old-sailor-420.webp" srcset="img/thumb/the-old-sailor-420.webp 420w, img/thumb/the-old-sailor.webp 700w" sizes="(max-width:760px) 46vw, (max-width:960px) 45vw, 380px" width="420" height="420" alt="The Old Sailor, tekening van Staaf" loading="lazy">
+        
+      </div>
+      <h3>The Old Sailor</h3>
+      <div class="meta">32 × 32 cm · vanaf €&nbsp;99,–</div>
+    </a>
+    <a class="card " href="#print-de-prins">
+      <div class="ph">
+        <img src="img/thumb/de-prins-420.webp" srcset="img/thumb/de-prins-420.webp 420w, img/thumb/de-prins.webp 700w" sizes="(max-width:760px) 46vw, (max-width:960px) 45vw, 380px" width="420" height="420" alt="De Prins, tekening van Staaf" loading="lazy">
+        
+      </div>
+      <h3>De Prins</h3>
+      <div class="meta">23 × 23 cm · vanaf €&nbsp;69,–</div>
+    </a>
+    <a class="card " href="#print-bouwman">
+      <div class="ph">
+        <img src="img/thumb/bouwman-420.webp" srcset="img/thumb/bouwman-420.webp 420w, img/thumb/bouwman.webp 700w" sizes="(max-width:760px) 46vw, (max-width:960px) 45vw, 380px" width="420" height="420" alt="Bouwman, tekening van Staaf" loading="lazy">
+        
+      </div>
+      <h3>Bouwman</h3>
+      <div class="meta">23 × 23 cm · vanaf €&nbsp;69,–</div>
+    </a>
+    <a class="card " href="#print-broodje-bert">
+      <div class="ph">
+        <img src="img/thumb/broodje-bert-420.webp" srcset="img/thumb/broodje-bert-420.webp 420w, img/thumb/broodje-bert.webp 700w" sizes="(max-width:760px) 46vw, (max-width:960px) 45vw, 380px" width="420" height="420" alt="Broodje Bert, tekening van Staaf" loading="lazy">
+        
+      </div>
+      <h3>Broodje Bert</h3>
+      <div class="meta">23 × 23 cm · vanaf €&nbsp;69,–</div>
+    </a>
+    <a class="card " href="#print-de-doffer">
+      <div class="ph">
+        <img src="img/thumb/de-doffer-420.webp" srcset="img/thumb/de-doffer-420.webp 420w, img/thumb/de-doffer.webp 700w" sizes="(max-width:760px) 46vw, (max-width:960px) 45vw, 380px" width="420" height="420" alt="De Doffer, tekening van Staaf" loading="lazy">
+        
+      </div>
+      <h3>De Doffer</h3>
+      <div class="meta">23 × 23 cm · vanaf €&nbsp;69,–</div>
+    </a>
+    <a class="card " href="#print-de-magere-brug">
+      <div class="ph">
+        <img src="img/thumb/de-magere-brug-420.webp" srcset="img/thumb/de-magere-brug-420.webp 420w, img/thumb/de-magere-brug.webp 700w" sizes="(max-width:760px) 46vw, (max-width:960px) 45vw, 380px" width="420" height="420" alt="De Magere Brug, tekening van Staaf" loading="lazy">
+        
+      </div>
+      <h3>De Magere Brug</h3>
+      <div class="meta">23 × 23 cm · vanaf €&nbsp;69,–</div>
+    </a>
+    <a class="card " href="#print-de-oude-wester">
+      <div class="ph">
+        <img src="img/thumb/de-oude-wester-420.webp" srcset="img/thumb/de-oude-wester-420.webp 420w, img/thumb/de-oude-wester.webp 700w" sizes="(max-width:760px) 46vw, (max-width:960px) 45vw, 380px" width="420" height="420" alt="De Oude Wester, tekening van Staaf" loading="lazy">
+        
+      </div>
+      <h3>De Oude Wester</h3>
+      <div class="meta">32 × 32 cm · vanaf €&nbsp;99,–</div>
+    </a>
+    <a class="card " href="#print-de-oude-wester-xl">
+      <div class="ph">
+        <img src="img/thumb/de-oude-wester-xl-420.webp" srcset="img/thumb/de-oude-wester-xl-420.webp 420w, img/thumb/de-oude-wester-xl.webp 700w" sizes="(max-width:760px) 46vw, (max-width:960px) 45vw, 380px" width="420" height="420" alt="De Oude Wester, tekening van Staaf" loading="lazy">
+        
+      </div>
+      <h3>De Oude Wester</h3>
+      <div class="meta">90 × 90 cm · vanaf €&nbsp;499,–</div>
+    </a>
+    <a class="card " href="#print-de-smoeshaan">
+      <div class="ph">
+        <img src="img/thumb/de-smoeshaan-420.webp" srcset="img/thumb/de-smoeshaan-420.webp 420w, img/thumb/de-smoeshaan.webp 700w" sizes="(max-width:760px) 46vw, (max-width:960px) 45vw, 380px" width="420" height="420" alt="De Smoeshaan, tekening van Staaf" loading="lazy">
+        
+      </div>
+      <h3>De Smoeshaan</h3>
+      <div class="meta">23 × 23 cm · vanaf €&nbsp;69,–</div>
+    </a>
+    <a class="card " href="#print-mads">
+      <div class="ph">
+        <img src="img/thumb/mads-420.webp" srcset="img/thumb/mads-420.webp 420w, img/thumb/mads.webp 700w" sizes="(max-width:760px) 46vw, (max-width:960px) 45vw, 380px" width="420" height="420" alt="Mads, tekening van Staaf" loading="lazy">
+        
+      </div>
+      <h3>Mads</h3>
+      <div class="meta">32 × 32 cm · vanaf €&nbsp;99,–</div>
+    </a>
+    <a class="card " href="#print-fonteyn">
+      <div class="ph">
+        <img src="img/thumb/fonteyn-420.webp" srcset="img/thumb/fonteyn-420.webp 420w, img/thumb/fonteyn.webp 700w" sizes="(max-width:760px) 46vw, (max-width:960px) 45vw, 380px" width="420" height="420" alt="Fonteyn, tekening van Staaf" loading="lazy">
+        
+      </div>
+      <h3>Fonteyn</h3>
+      <div class="meta">32 × 32 cm · vanaf €&nbsp;99,–</div>
+    </a>
+    <a class="card " href="#print-winkel-43">
+      <div class="ph">
+        <img src="img/thumb/winkel-43-420.webp" srcset="img/thumb/winkel-43-420.webp 420w, img/thumb/winkel-43.webp 700w" sizes="(max-width:760px) 46vw, (max-width:960px) 45vw, 380px" width="420" height="420" alt="Winkel 43, tekening van Staaf" loading="lazy">
+        
+      </div>
+      <h3>Winkel 43</h3>
+      <div class="meta">23 × 23 cm · vanaf €&nbsp;69,–</div>
+    </a>
+    <a class="card " href="#print-diep">
+      <div class="ph">
+        <img src="img/thumb/diep-420.webp" srcset="img/thumb/diep-420.webp 420w, img/thumb/diep.webp 700w" sizes="(max-width:760px) 46vw, (max-width:960px) 45vw, 380px" width="420" height="420" alt="Diep, tekening van Staaf" loading="lazy">
+        
+      </div>
+      <h3>Diep</h3>
+      <div class="meta">32 × 32 cm · vanaf €&nbsp;99,–</div>
+    </a>
+    <a class="card " href="#print-finch">
+      <div class="ph">
+        <img src="img/thumb/finch-420.webp" srcset="img/thumb/finch-420.webp 420w, img/thumb/finch.webp 700w" sizes="(max-width:760px) 46vw, (max-width:960px) 45vw, 380px" width="420" height="420" alt="Finch, tekening van Staaf" loading="lazy">
+        
+      </div>
+      <h3>Finch</h3>
+      <div class="meta">23 × 23 cm · vanaf €&nbsp;69,–</div>
+    </a>
+    <a class="card " href="#print-de-brabantse-aap">
+      <div class="ph">
+        <img src="img/thumb/de-brabantse-aap-420.webp" srcset="img/thumb/de-brabantse-aap-420.webp 420w, img/thumb/de-brabantse-aap.webp 700w" sizes="(max-width:760px) 46vw, (max-width:960px) 45vw, 380px" width="420" height="420" alt="De Brabantse Aap, tekening van Staaf" loading="lazy">
+        
+      </div>
+      <h3>De Brabantse Aap</h3>
+      <div class="meta">32 × 32 cm · vanaf €&nbsp;99,–</div>
+    </a>
+    <a class="card " href="#print-de-balie">
+      <div class="ph">
+        <img src="img/thumb/de-balie-420.webp" srcset="img/thumb/de-balie-420.webp 420w, img/thumb/de-balie.webp 700w" sizes="(max-width:760px) 46vw, (max-width:960px) 45vw, 380px" width="420" height="420" alt="De Balie, tekening van Staaf" loading="lazy">
+        
+      </div>
+      <h3>De Balie</h3>
+      <div class="meta">23 × 23 cm · vanaf €&nbsp;69,–</div>
+    </a>
+    <a class="card " href="#print-de-oerknal">
+      <div class="ph">
+        <img src="img/thumb/de-oerknal-420.webp" srcset="img/thumb/de-oerknal-420.webp 420w, img/thumb/de-oerknal.webp 700w" sizes="(max-width:760px) 46vw, (max-width:960px) 45vw, 380px" width="420" height="420" alt="De Oerknal, tekening van Staaf" loading="lazy">
+        
+      </div>
+      <h3>De Oerknal</h3>
+      <div class="meta">32 × 32 cm · vanaf €&nbsp;99,–</div>
+    </a>
+    <a class="card " href="#print-krom">
+      <div class="ph">
+        <img src="img/thumb/krom-420.webp" srcset="img/thumb/krom-420.webp 420w, img/thumb/krom.webp 700w" sizes="(max-width:760px) 46vw, (max-width:960px) 45vw, 380px" width="420" height="420" alt="Krom, tekening van Staaf" loading="lazy">
+        
+      </div>
+      <h3>Krom</h3>
+      <div class="meta">32 × 32 cm · vanaf €&nbsp;99,–</div>
+    </a>
+    <a class="card " href="#print-pieper">
+      <div class="ph">
+        <img src="img/thumb/pieper-420.webp" srcset="img/thumb/pieper-420.webp 420w, img/thumb/pieper.webp 700w" sizes="(max-width:760px) 46vw, (max-width:960px) 45vw, 380px" width="420" height="420" alt="Pieper, tekening van Staaf" loading="lazy">
+        
+      </div>
+      <h3>Pieper</h3>
+      <div class="meta">23 × 23 cm · vanaf €&nbsp;69,–</div>
+    </a>
+    <a class="card " href="#print-pompet">
+      <div class="ph">
+        <img src="img/thumb/pompet-420.webp" srcset="img/thumb/pompet-420.webp 420w, img/thumb/pompet.webp 700w" sizes="(max-width:760px) 46vw, (max-width:960px) 45vw, 380px" width="420" height="420" alt="Pompet, tekening van Staaf" loading="lazy">
+        
+      </div>
+      <h3>Pompet</h3>
+      <div class="meta">32 × 32 cm · vanaf €&nbsp;99,–</div>
+    </a>
+    <a class="card " href="#print-radion">
+      <div class="ph">
+        <img src="img/thumb/radion-420.webp" srcset="img/thumb/radion-420.webp 420w, img/thumb/radion.webp 700w" sizes="(max-width:760px) 46vw, (max-width:960px) 45vw, 380px" width="420" height="420" alt="Radion, tekening van Staaf" loading="lazy">
+        
+      </div>
+      <h3>Radion</h3>
+      <div class="meta">32 × 32 cm · vanaf €&nbsp;99,–</div>
+    </a>
+    <a class="card " href="#print-schuim">
+      <div class="ph">
+        <img src="img/thumb/schuim-420.webp" srcset="img/thumb/schuim-420.webp 420w, img/thumb/schuim.webp 700w" sizes="(max-width:760px) 46vw, (max-width:960px) 45vw, 380px" width="420" height="420" alt="Schuim, tekening van Staaf" loading="lazy">
+        
+      </div>
+      <h3>Schuim</h3>
+      <div class="meta">23 × 23 cm · vanaf €&nbsp;69,–</div>
+    </a>
+    <a class="card " href="#print-zeeburg">
+      <div class="ph">
+        <img src="img/thumb/zeeburg-420.webp" srcset="img/thumb/zeeburg-420.webp 420w, img/thumb/zeeburg.webp 700w" sizes="(max-width:760px) 46vw, (max-width:960px) 45vw, 380px" width="420" height="420" alt="Zeeburg, tekening van Staaf" loading="lazy">
+        
+      </div>
+      <h3>Zeeburg</h3>
+      <div class="meta">32 × 32 cm · vanaf €&nbsp;99,–</div>
+    </a>
+    <a class="card " href="#print-de-blaffende-vis">
+      <div class="ph">
+        <img src="img/thumb/de-blaffende-vis-420.webp" srcset="img/thumb/de-blaffende-vis-420.webp 420w, img/thumb/de-blaffende-vis.webp 700w" sizes="(max-width:760px) 46vw, (max-width:960px) 45vw, 380px" width="420" height="420" alt="De Blaffende Vis, tekening van Staaf" loading="lazy">
+        
+      </div>
+      <h3>De Blaffende Vis</h3>
+      <div class="meta">32 × 32 cm · vanaf €&nbsp;99,–</div>
+    </a>
+    <a class="card " href="#print-de-engelbewaarder">
+      <div class="ph">
+        <img src="img/thumb/de-engelbewaarder-420.webp" srcset="img/thumb/de-engelbewaarder-420.webp 420w, img/thumb/de-engelbewaarder.webp 700w" sizes="(max-width:760px) 46vw, (max-width:960px) 45vw, 380px" width="420" height="420" alt="De Engelbewaarder, tekening van Staaf" loading="lazy">
+        
+      </div>
+      <h3>De Engelbewaarder</h3>
+      <div class="meta">32 × 32 cm · vanaf €&nbsp;99,–</div>
+    </a>
+    <a class="card " href="#print-amstel-hotel">
+      <div class="ph">
+        <img src="img/thumb/amstel-hotel-420.webp" srcset="img/thumb/amstel-hotel-420.webp 420w, img/thumb/amstel-hotel.webp 700w" sizes="(max-width:760px) 46vw, (max-width:960px) 45vw, 380px" width="420" height="420" alt="Amstel Hotel, tekening van Staaf" loading="lazy">
+        
+      </div>
+      <h3>Amstel Hotel</h3>
+      <div class="meta">32 × 32 cm · vanaf €&nbsp;99,–</div>
+    </a>
+    <a class="card " href="#print-de-nieuwe-lelie">
+      <div class="ph">
+        <img src="img/thumb/de-nieuwe-lelie-420.webp" srcset="img/thumb/de-nieuwe-lelie-420.webp 420w, img/thumb/de-nieuwe-lelie.webp 700w" sizes="(max-width:760px) 46vw, (max-width:960px) 45vw, 380px" width="420" height="420" alt="De Nieuwe Lelie, tekening van Staaf" loading="lazy">
+        
+      </div>
+      <h3>De Nieuwe Lelie</h3>
+      <div class="meta">32 × 32 cm · vanaf €&nbsp;99,–</div>
+    </a>
+    <a class="card " href="#print-galerie-staaf">
+      <div class="ph">
+        <img src="img/thumb/galerie-staaf-420.webp" srcset="img/thumb/galerie-staaf-420.webp 420w, img/thumb/galerie-staaf.webp 700w" sizes="(max-width:760px) 46vw, (max-width:960px) 45vw, 380px" width="420" height="420" alt="Galerie Staaf, tekening van Staaf" loading="lazy">
+        
+      </div>
+      <h3>Galerie Staaf</h3>
+      <div class="meta">32 × 32 cm · vanaf €&nbsp;99,–</div>
+    </a></div></main>
 
 <footer class="footer">
-  <p class="footer-logo">Toen we daar zo zaten</p>
-  <p>Galerie Staaf · Bloemgracht, Amsterdam</p>
-  <p>E-mail <a href="mailto:staaf@chello.nl">staaf@chello.nl</a></p>
-  <p>Rogier <a href="tel:+31620609296">06 2060 9296</a> · David <a href="tel:+31655790246">06 5579 0246</a></p>
-  <p class="footer-small">Alle prints zijn gesigneerd en verschijnen in een beperkte oplage. Betalen met iDEAL, creditcard en meer via Mollie.</p>
+  <div class="footer-grid">
+    <div>
+      <p class="footer-logo">Toen we daar zo zaten</p>
+      <p>Tekeningen van Staaf, verhalen van Rogier Cornelisse. Eerder verschenen in PS van Het Parool.</p>
+    </div>
+    <div>
+      <p class="label">Galerie</p>
+      <p>Galerie Staaf<br>Bloemgracht, Amsterdam<br><a href="https://www.staaf.nl">staaf.nl</a></p>
+    </div>
+    <div>
+      <p class="label">Contact</p>
+      <p><a href="mailto:staaf@chello.nl">staaf@chello.nl</a><br>David <a href="tel:+31655790246">06 5579 0246</a><br>Rogier <a href="tel:+31620609296">06 2060 9296</a></p>
+    </div>
+    <div>
+      <p class="label">Bestellen</p>
+      <p>Gesigneerd, beperkte oplage.<br>Betalen met iDEAL en meer.<br>Ophalen in de galerie kan ook.</p>
+    </div>
+  </div>
 </footer>
 
-<div class="lightbox" id="lightbox" hidden>
+<div class="lightbox" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="Vergroting">
   <button class="lb-close" aria-label="Sluiten">×</button>
   <button class="lb-prev" aria-label="Vorige">‹</button>
   <figure><img alt=""><figcaption></figcaption></figure>
   <button class="lb-next" aria-label="Volgende">›</button>
 </div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
-<script src="app.js"></script>
+<script src="app.js" defer></script>
 </body>
 </html>
