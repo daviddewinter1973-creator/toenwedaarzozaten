@@ -26,8 +26,10 @@
   .state{font:600 10px var(--sans);letter-spacing:.12em;text-transform:uppercase;white-space:nowrap}
   .state.out{color:var(--red)} .state.few{color:#b35a00} .state.ok{color:var(--ink3)}
   tr.changed td{background:#f2f2f2}
-  .bar{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid var(--ink);padding:14px var(--gut);display:flex;gap:16px;align-items:center;justify-content:space-between}
-  .bar p{margin:0;font:500 13px var(--sans);color:var(--ink2)}
+  .bar{position:fixed;left:0;right:0;bottom:0;background:var(--ink);padding:14px var(--gut);display:flex;gap:16px;align-items:center;justify-content:space-between;z-index:10}
+  .bar p{margin:0;font:600 13px var(--sans);color:#fff}
+  .bar .btn{background:var(--red)}
+  .bar .btn[disabled]{background:#555;color:#aaa}
   .sales{margin-top:56px}
   .sales li{font-size:15px;padding:8px 0;border-bottom:1px solid var(--line);list-style:none}
   .sales ul{padding:0}
@@ -97,6 +99,12 @@
   });
   document.addEventListener('click', e => { const b = e.target.closest('button[data-d]'); if (!b) return; set(b.dataset.s, STOCK[b.dataset.s] + (+b.dataset.d)); render(); });
   document.addEventListener('change', e => { const i = e.target.closest('input[data-s]'); if (!i) return; set(i.dataset.s, i.value); render(); });
+  // Tijdens het typen al meetellen, zodat de knop Opslaan meteen oplicht.
+  document.addEventListener('input', e => {
+    const i = e.target.closest('input[data-s]'); if (!i || i.value === '') return;
+    set(i.dataset.s, i.value); i.closest('tr').classList.toggle('changed', STOCK[i.dataset.s] !== ORIG[i.dataset.s]);
+    const n = changes(); $('#save').disabled = n === 0; $('#status').textContent = n ? `${n} wijziging${n > 1 ? 'en' : ''}, nog niet opgeslagen` : 'Alles is opgeslagen';
+  });
   $('#save').addEventListener('click', async () => {
     $('#save').disabled = true; $('#status').textContent = 'Bezig met opslaan';
     try { const j = await api({ action: 'save', stock: STOCK, asOf: ASOF }); ASOF = j.asOf; STOCK = j.stock; ORIG = structuredClone(j.stock); render(); $('#status').textContent = 'Opgeslagen ' + fmt(j.updatedAt) + '. Direct zichtbaar op de site.'; }
