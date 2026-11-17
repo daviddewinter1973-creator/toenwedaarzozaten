@@ -138,7 +138,7 @@
                 </label>`; }).join('')}
             </fieldset>
             <button class="btn wide" data-add="${p.slug}" ${s === 'out' ? 'disabled' : ''}>${s === 'out' ? 'Uitverkocht' : 'In winkelwagen'}</button>
-            <p class="note">${p.xl ? 'Te groot voor de post: ophalen in Galerie Staaf aan de Bloemgracht, of mail ons voor bezorging in Amsterdam.' : `Verzending in Nederland ${euroExact(DATA.shipping.zones[0].pp)}, ingelijst ${euroExact(DATA.shipping.zones[0].lijst)} (stevig verpakt). Gratis ophalen in Galerie Staaf aan de Bloemgracht.`}</p>
+            <p class="note">${p.xl ? 'Te groot voor de post: ophalen in Galerie Staaf, Bloemgracht 158, of mail ons voor bezorging in Amsterdam.' : `Verzending in Nederland ${euroExact(DATA.shipping.zones[0].pp)}, ingelijst ${euroExact(DATA.shipping.zones[0].lijst)} (stevig verpakt). Gratis ophalen in Galerie Staaf, Bloemgracht 158.`}</p>
           </div>
         </div>
         ${k ? `
