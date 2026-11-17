@@ -250,7 +250,7 @@
     },
 
     bedankt() {
-      return `<div class="empty"><p class="kicker">Bestelling ontvangen</p><h1 class="display">Dank je wel</h1><p class="lede">Zodra je betaling binnen is, maken we je bestelling klaar. Je krijgt een bevestiging per e-mail. Vragen? Mail naar staaf@chello.nl.</p><a class="btn outline" href="#shop">Terug naar de prints</a></div>`;
+      return `<div class="empty"><p class="kicker">Bestelling ontvangen</p><h1 class="display">Dank je wel</h1><p class="lede">Zodra je betaling binnen is, maken we je bestelling klaar en nemen we contact met je op over ophalen of verzenden. Vragen? Mail naar staaf@chello.nl.</p><a class="btn outline" href="#shop">Terug naar de prints</a></div>`;
     },
 
     notfound() { return `<div class="empty"><h1 class="display">Niet gevonden</h1><a class="btn" href="#shop">Naar de prints</a></div>`; }
