@@ -44,6 +44,7 @@ export async function getSales() {
 
 // Huidige voorraad per print per uitvoering.
 export async function currentStock(origin, data) {
+  data = data || await loadData(origin);
   const basis = await getBasis(origin, data);
   const sales = await getSales();
   const stock = structuredClone(basis.stock);
