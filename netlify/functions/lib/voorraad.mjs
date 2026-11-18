@@ -47,6 +47,9 @@ export async function currentStock(origin, data) {
   const basis = await getBasis(origin, data);
   const sales = await getSales();
   const stock = structuredClone(basis.stock);
+  // Nieuwe prints die nog niet in /beheer zijn ingesteld: beginvoorraad uit data.json.
+  const seed = seedFrom(data).stock;
+  for (const k of Object.keys(seed)) if (typeof stock[k] !== 'number') stock[k] = seed[k];
   for (const sale of sales) {
     if (sale.at <= basis.updatedAt) continue;
     for (const [slug, , qty] of sale.items) {

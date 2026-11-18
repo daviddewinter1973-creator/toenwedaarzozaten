@@ -1001,6 +1001,31 @@
    "artW": 1300
   },
   {
+   "slug": "morlang-xl",
+   "title": "Morlang",
+   "xl": true,
+   "edition": 10,
+   "size": "90 x 90 cm",
+   "imageSize": "70 x 70 cm",
+   "variants": [
+    {
+     "id": "pp",
+     "label": "Met passe-partout",
+     "price": 49900,
+     "stock": 5
+    },
+    {
+     "id": "lijst",
+     "label": "Met passe-partout en zwarte houten lijst, museumglas",
+     "price": 97500,
+     "stock": 5
+    }
+   ],
+   "krant": "morlang",
+   "order": 39.5,
+   "artW": 1400
+  },
+  {
    "slug": "de-smoeshaan",
    "title": "De Smoeshaan",
    "xl": false,
